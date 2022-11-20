@@ -1,0 +1,12 @@
+package controler;
+
+import model.vo.UsuarioVO;
+
+public class UsuarioController {
+
+	public UsuarioVO realizarLoginController(UsuarioVO usuarioVO) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

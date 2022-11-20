@@ -1,0 +1,12 @@
+package view;
+
+import model.vo.UsuarioVO;
+
+public class Menu {
+
+	public void apresentarMenu(UsuarioVO usuarioVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

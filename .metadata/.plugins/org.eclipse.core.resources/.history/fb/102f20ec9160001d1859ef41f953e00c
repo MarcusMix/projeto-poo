@@ -1,0 +1,40 @@
+package view;
+
+import java.util.Scanner;
+
+public class Login {
+	Scanner teclado = new Scanner(System.in);
+	private static final int OPCAO_MENU_LOGIN = 1;
+	private static final int OPCAO_MENU_CRIAR_CONTA = 2;
+	private static final int OPCAO_MENU_SAIR = 3;
+	public void apresentarMenuLogin() {
+		int opcao = this.apresentarOpcoesMenu();
+		while(opcao != OPCAO_MENU_SAIR) {
+			switch(opcao) {
+			case OPCAO_MENU_LOGIN: {
+				System.out.println("Realizando o Login");
+				break;
+			}
+			case OPCAO_MENU_CRIAR_CONTA: {
+				System.out.println("Criando conta");
+				break;
+			}
+			default: {
+				System.out.println("\nOpção inválida!");
+			}
+		} 
+			opcao = this.apresentarOpcoesMenu();
+		// TODO Auto-generated method stub
+		
+	}
+
+}
+	private int apresentarOpcoesMenu() {
+		System.out.println("\n---------Sistema FoodTruck----------");
+		System.out.println("\nOpções");
+		System.out.println(OPCAO_MENU_LOGIN + " - Entrar");
+		System.out.println(OPCAO_MENU_CRIAR_CONTA + " - Criar conta");
+		System.out.println(OPCAO_MENU_SAIR + " - Sair");
+		System.out.println("\n Digite uma opção: ");
+		return Integer.parseInt(teclado.nextLine());
+	}}

@@ -1,0 +1,17 @@
+package view;
+
+import model.vo.UsuarioVO;
+
+public class MenuUsuario {
+
+	public void cadastrarNovoUsuario(UsuarioVO usuarioVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	public void apresentarMenuUsuario() {
+		// TODO Auto-generated method stub
+		
+	}
+
+}

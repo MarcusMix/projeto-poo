@@ -1,0 +1,141 @@
+package model.vo;
+
+import java.time.LocalDateTime;
+
+public class UsuarioVo {
+	private int idUsuario;
+	private TipoUsuarioVO tipoUsuarioVO;
+	private String nome;
+	private String cpf;
+	private String email;
+	private String telefone;
+	private LocalDateTime dataCadastro;
+	private LocalDateTime dataExpericao;
+	private String login;
+	private String senha;
+	
+	
+	public UsuarioVo(int idUsuario, TipoUsuarioVO tipoUsuarioVO, String nome, String cpf, String email, String telefone,
+			LocalDateTime dataCadastro, LocalDateTime dataExpericao, String login, String senha) {
+		super();
+		this.idUsuario = idUsuario;
+		this.tipoUsuarioVO = tipoUsuarioVO;
+		this.nome = nome;
+		this.cpf = cpf;
+		this.email = email;
+		this.telefone = telefone;
+		this.dataCadastro = dataCadastro;
+		this.dataExpericao = dataExpericao;
+		this.login = login;
+		this.senha = senha;
+	}
+
+
+	public UsuarioVo() {
+		super();
+		
+	}
+
+
+	public int getIdUsuario() {
+		return idUsuario;
+	}
+
+
+	public void setIdUsuario(int idUsuario) {
+		this.idUsuario = idUsuario;
+	}
+
+
+	public TipoUsuarioVO getTipoUsuarioVO() {
+		return tipoUsuarioVO;
+	}
+
+
+	public void setTipoUsuarioVO(TipoUsuarioVO tipoUsuarioVO) {
+		this.tipoUsuarioVO = tipoUsuarioVO;
+	}
+
+
+	public String getNome() {
+		return nome;
+	}
+
+
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+
+
+	public String getCpf() {
+		return cpf;
+	}
+
+
+	public void setCpf(String cpf) {
+		this.cpf = cpf;
+	}
+
+
+	public String getEmail() {
+		return email;
+	}
+
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+
+	public String getTelefone() {
+		return telefone;
+	}
+
+
+	public void setTelefone(String telefone) {
+		this.telefone = telefone;
+	}
+
+
+	public LocalDateTime getDataCadastro() {
+		return dataCadastro;
+	}
+
+
+	public void setDataCadastro(LocalDateTime dataCadastro) {
+		this.dataCadastro = dataCadastro;
+	}
+
+
+	public LocalDateTime getDataExpericao() {
+		return dataExpericao;
+	}
+
+
+	public void setDataExpericao(LocalDateTime dataExpericao) {
+		this.dataExpericao = dataExpericao;
+	}
+
+
+	public String getLogin() {
+		return login;
+	}
+
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
+
+	public String getSenha() {
+		return senha;
+	}
+
+
+	public void setSenha(String senha) {
+		this.senha = senha;
+	}
+	
+	
+
+}

@@ -1,0 +1,10 @@
+package arvre;
+
+public class Tree<dado> {
+	
+	private Element<dado> raiz;
+	
+	public Tree() {
+		this.raiz = null;
+	}
+}

@@ -1,0 +1,12 @@
+package arvre;
+
+public class Principal {
+
+	public static void main(String[] args) {
+		Tree<Integer> objeto = new Tree<Integer>();
+		objeto.adicionar(10);
+		objeto.adicionar(10);
+		objeto.mostrarValores();
+	}
+
+}

@@ -1,0 +1,25 @@
+package arvre;
+
+public class element<dado> {
+	
+	dado valornum;
+	Element<dado> container;
+	
+	public dado getValornum() {
+		return valornum;
+	}
+	public void setValornum(dado valornum) {
+		this.valornum = valornum;
+	}
+	public Element<dado> getContainer() {
+		return container;
+	}
+	public void setContainer(Element<dado> container) {
+		this.container = container;
+	}
+	
+	public element(dado entrada) {
+		this.valornum = entrada;
+		this.container = null;
+	}
+}

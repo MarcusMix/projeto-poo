@@ -1,0 +1,77 @@
+package view;
+
+import java.util.Scanner;
+
+import model.vo.UsuarioVO;
+
+public class MenuUsuario {
+	
+	
+	private static final int OPCAO_MENU_CADASTRAR_USUARIO = 1;
+	private static final int OPCAO_MENU_CONSULTAR_USUARIO = 2;
+	private static final int OPCAO_MENU_ATUALIZAR_USUARIO = 3;
+	private static final int OPCAO_MENU_EXCLUIR_USUARIO = 4;
+	private static final int OPCAO_MENU_USUARIO_VOLTAR= 5;
+	
+	
+	
+	private static final int OPCAO_MENU_CONSULTAR_TODOS_USUARIO = 1;
+	private static final int OPCAO_MENU_CONSULTAR_UM_USUARIO = 2;
+	private static final int OPCAO_MENU_CONSULTAR_USUARIO_VOLTAR= 3;
+
+	
+	Scanner teclado = new Scanner(System.in);
+	
+	
+	public void apresentarMenuUsuario() {
+		int opcao = this.apresentarOpcoesMenu();
+		
+		while(opcao != OPCAO_MENU_USUARIO_VOLTAR) {
+			switch(opcao) {
+				case OPCAO_MENU_CADASTRAR_USUARIO: {
+					UsuarioVO usuarioVO = new UsuarioVO();
+					this.cadastrarUsuario(usuarioVO);
+				}
+				case OPCAO_MENU_CONSULTAR_USUARIO: {
+					this.consultarUsuario(usuarioVO);
+					
+				}
+				case OPCAO_MENU_ATUALIZAR_USUARIO: {
+					this.atualizarUsuario(usuarioVO);
+				}
+				case OPCAO_MENU_EXCLUIR_USUARIO: {
+					this.excluirUsuario(usuarioVO);
+				}
+			
+			}
+			opcao = this.apresentarOpcoesMenu();
+		}
+		
+	}
+	
+
+	private int apresentarOpcoesMenu() {	
+		
+		System.out.println("----------------Sistema Foodtruck------------------");
+		System.out.println("-------------Menu de Usuário----------------");
+		System.out.println("\n Opções");
+		System.out.println(OPCAO_MENU_CADASTRAR_USUARIO + " - Cadastrar usuário.");
+		System.out.println(OPCAO_MENU_CONSULTAR_USUARIO + " - Consultar usuário.");
+		System.out.println(OPCAO_MENU_ATUALIZAR_USUARIO + " - Atualizar usuário.");
+		System.out.println(OPCAO_MENU_EXCLUIR_USUARIO + " - Excluir usuário.");
+		System.out.println(OPCAO_MENU_USUARIO_VOLTAR + " - Voltar.");
+		
+
+		System.out.println("Digite uma opção: ");
+		
+		return 0;
+	}
+
+
+	public void cadastrarNovoUsuario(UsuarioVO usuarioVO) {
+		// TODO Auto-generated method stub
+		
+	}
+
+
+}
