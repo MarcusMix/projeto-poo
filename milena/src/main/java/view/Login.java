@@ -30,7 +30,7 @@ public class Login {
 					break;
 				}
 				case OPCAO_MENU_CRIAR_LOGIN: {
-					System.out.println("Criando conta");
+					this.cadastrarNovoUsuario();
 					break;
 				}
 				default: {
