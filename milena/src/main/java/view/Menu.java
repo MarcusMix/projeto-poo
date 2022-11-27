@@ -20,6 +20,8 @@ public class Menu {
 		while (opcao != OPCAO_MENU_VOLTAR) {
 			switch (opcao) {
 			case OPCAO_MENU_VENDA: {// todos
+				MenuVenda menuVenda = new MenuVenda();
+				menuVenda.apresentarMenuVendas(usuarioVO);
 				System.out.println("Acessando Menu de Vendas....");
 				break;
 			}
