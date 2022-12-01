@@ -91,9 +91,9 @@ public class MenuUsuario {
 			UsuarioController usuarioController = new UsuarioController();
 			usuarioVO = usuarioController.cadastrarUsuarioController(usuarioVO);
 		} if(usuarioVO.getIdUsuario() != 0) {
-			System.out.println("Usuário cadastrado com sucesso!");
+			System.out.println("Usuário atualizado com sucesso!");
 		} else {
-			System.out.println("Não foi possível cadastrar usuário!");
+			System.out.println("Não foi possível atualizar o usuário!");
 		}
 		
 	}
@@ -116,10 +116,6 @@ public class MenuUsuario {
 		}
 		if(usuarioVO.getTelefone() == null || usuarioVO.getTelefone().isEmpty()) {
 			System.out.println("O campo telefone é obrigatório!");
-			resultado = false;
-		}
-		if(usuarioVO.getDataCadrasto() == null) {
-			System.out.println("O campo data de cadastro é obrigatório!");
 			resultado = false;
 		}
 		if(usuarioVO.getLogin() == null || usuarioVO.getLogin().isEmpty()) {
@@ -148,18 +144,97 @@ public class MenuUsuario {
 
 
 	private void consultarUsuario() {
-		// TODO Auto-generated method stub
-		
+		int opcao = this.apresentarOpcoesConsulta();
+		UsuarioController usuarioController = new UsuarioController();
+		while(opcao != OPCAO_MENU_CONSULTAR_USUARIO_VOLTAR) {
+			switch(opcao) {
+				case OPCAO_MENU_CONSULTAR_TODOS_USUARIO: {
+					opcao = OPCAO_MENU_CONSULTAR_USUARIO_VOLTAR;
+					ArrayList<UsuarioVO> listaUsuariosVO = usuarioController.consultarTodosUsuarioController();
+					System.out.println("--------Resultado da Consulta--------");
+					System.out.printf("\n%3s  %-13s  %-20s  %-11s  %-25s  %-13s  %-24s  %-24s  %-10s  %-10s  ",
+							"ID", "TIPO USUARIO", "NOME", "CPF", "E-MAIL", "TELEFONE", "DATA CADASTRO", 
+							"DATA EXPIRAÇÃO", "LOGIN", "SENHA");
+					for(int i = 0; i < listaUsuariosVO.size(); i++) {
+						listaUsuariosVO.get(i).imprimir();
+					}
+					System.out.println();
+					break;
+				}
+				case OPCAO_MENU_CONSULTAR_UM_USUARIO: {
+					opcao = OPCAO_MENU_CONSULTAR_USUARIO_VOLTAR;
+					UsuarioVO usuarioVO = new UsuarioVO();
+					System.out.print("\nInforme o código do usuário: ");
+					usuarioVO.setIdUsuario(Integer.parseInt(teclado.nextLine()));
+					if(usuarioVO.getIdUsuario() != 0) {
+						UsuarioVO usuario = usuarioController.consultarUsuarioController(usuarioVO);
+						System.out.println("--------Resultado da Consulta--------");
+						System.out.printf("\n%3s  %-13s  %-20s  %-11s  %-25s  %-13s  %-24s  %-24s  %-10s  %-10s  ",
+								"ID", "TIPO USUARIO", "NOME", "CPF", "E-MAIL", "TELEFONE", "DATA CADASTRO", 
+								"DATA EXPIRAÇÃO", "LOGIN", "SENHA");
+						
+						usuario.imprimir();
+						System.out.println();
+					}else {
+						System.out.println("O campo código do usuário é obrigatório!");
+					}
+					break;
+				}
+				default: {
+					System.out.println("\nOpção não encontrada!");
+					opcao = this.apresentarOpcoesConsulta();
+				}
+			}
+		}
+	}
+
+
+	private int apresentarOpcoesConsulta() {
+		System.out.println("\nInforme o tipo de consulta a ser realizada: ");
+		System.out.println(OPCAO_MENU_CONSULTAR_TODOS_USUARIO + " - Consultar todos os usuários");
+		System.out.println(OPCAO_MENU_CONSULTAR_UM_USUARIO + " - Consultar um usuário específico");
+		System.out.println(OPCAO_MENU_CONSULTAR_USUARIO_VOLTAR +  " - Voltar");
+		System.out.println("Digite uma opção: ");
+		return Integer.parseInt(teclado.nextLine());
 	}
 
 
 	private void atualizarUsuario() {
-		// TODO Auto-generated method stub
+		UsuarioVO usuarioVO = new UsuarioVO();
+		System.out.print("\nInforma o código do usuário: ");
+		usuarioVO.setIdUsuario(Integer.parseInt(teclado.nextLine()));
+			do {
+				usuarioVO.setTipoUsuarioVO(TipoUsuarioVO.getTipoUsuarioVOPorValor(this.apresentarOpcoesTipoUsuarioVO()));
+			} while(usuarioVO.getTipoUsuarioVO() == null);
+			
+			System.out.print("\nDigite o nome: ");
+			usuarioVO.setNome(teclado.nextLine());
+			System.out.print("\nDigite o CPF: ");
+			usuarioVO.setCpf(teclado.nextLine());
+			System.out.print("\nDigite o e-mail: ");
+			usuarioVO.setEmail(teclado.nextLine());
+			System.out.print("\nDigite o telefone: ");
+			usuarioVO.setTelefone(teclado.nextLine());
+			usuarioVO.setDataCadrasto(LocalDateTime.now());
+			System.out.print("\nDigite o login: ");
+			usuarioVO.setLogin(teclado.nextLine());
+			System.out.print("\nDigite a senha: ");
+			usuarioVO.setSenha(teclado.nextLine());
+			
+			if(this.validarCamposCadastro(usuarioVO)) {
+				UsuarioController usuarioController = new UsuarioController();
+				boolean resultado = usuarioController.atualizarUsuarioController(usuarioVO);
+				if(resultado) {
+					System.out.println("Usuário cadastrado com sucesso!");
+				} else {
+					System.out.println("Não foi possível cadastrar usuário!");
+			} 
+			}
+			
+		}
 		
-	}
-
-
-	private void excluirUsuario() {
+	
+		private void excluirUsuario() {
 		UsuarioVO usuarioVO = new UsuarioVO();
 		System.out.println("\nInforme o código do usuário: ");
 		usuarioVO.setIdUsuario(Integer.parseInt(teclado.nextLine()));
@@ -191,14 +266,8 @@ public class MenuUsuario {
 		System.out.println(OPCAO_MENU_EXCLUIR_USUARIO + " - Excluir usuário.");
 		System.out.println(OPCAO_MENU_USUARIO_VOLTAR + " - Voltar.");
 		
-
 		System.out.println("Digite uma opção: ");
 		
 		return Integer.parseInt(teclado.nextLine());
 	}
-
-
-	
-
-
 }

@@ -172,7 +172,10 @@ public class UsuarioDAO {
 		try {
 			resultado = stmt.executeQuery(query);
 			if(resultado.next()) {
-				retorno = true;
+				String dataEspiracao = resultado.getString(1);
+				if(dataEspiracao != null) {
+					retorno = true;					
+				}
 			}
 		} catch (SQLException erro) {
 			System.out.println("Erro ao executar a query do método verificarDesligamentoDeUsuarioPorIdUsuarioDAO");
@@ -207,6 +210,43 @@ public class UsuarioDAO {
 			Banco.closeConnection(conn);
 		}
 		return retorno;
+	}
+
+	public boolean atualizarUsuarioDAO(UsuarioVO usuarioVO) {
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		boolean retorno = false;
+		
+		String query = "UPDATE usuario SET idtipousuario = " + usuarioVO.getTipoUsuarioVO().getValor() 
+				+ ", nome = '" + usuarioVO.getNome()
+				+ "', cpf = '" + usuarioVO.getCpf()
+				+ "', email = '" + usuarioVO.getEmail()
+				+ "', telefone = '" + usuarioVO.getTelefone()
+				+ "', login = '" + usuarioVO.getLogin()
+				+ "', senha = '" + usuarioVO.getSenha()
+				+ "' WHERE idusuario = " + usuarioVO.getIdUsuario();
+		try {
+			if(stmt.executeUpdate(query) == 1) {
+				retorno = true;
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao executar a query do método atualizarUsuarioDAO");
+			System.out.println("Erro: " + erro.getMessage());
+		} finally {
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return retorno;
+	}
+
+	public ArrayList<UsuarioVO> consultarTodosUsuariosDAO() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public UsuarioVO consultarUsuarioDAO(UsuarioVO usuarioVO) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

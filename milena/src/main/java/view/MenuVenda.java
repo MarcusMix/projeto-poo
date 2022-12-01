@@ -82,10 +82,10 @@ public class MenuVenda {
 			System.out.println("Informe o c[odigo do cliente: ");
 			vendaVO.setIdUsuario(Integer.parseInt(teclado.nextLine()));
 		}
-		vendaVO.setNumeroPedido(this.gerarNumeroPedido());
-		vendaVO.setDataVenda(LocalDateTime.now());
-		double subTotal = 0;
-		ArrayList<ItemVendaVO>
+//		vendaVO.setNumeroPedido(this.gerarNumeroPedido());
+//		vendaVO.setDataVenda(LocalDateTime.now());
+//		double subTotal = 0;
+//		ArrayList<ItemVendaVO>
  	}
 	
 	

@@ -28,7 +28,7 @@ public class ProdutoDAO {
 			while(resultado.next()) {
 				ProdutoVO produtoVO = new ProdutoVO();
 				produtoVO.setIdProduto(Integer.parseInt(resultado.getString(1)));
-				produtoVO.setTipoProduto(TipoProdutoVO.valueOf(resultado.getString(2)));
+//				produtoVO.setTipoProduto(TipoProdutoVO.valueOf(resultado.getString(2)));
 				produtoVO.setNome(resultado.getString(3));
 				produtoVO.setPreco(Double.parseDouble(resultado.getString(4)));
 				produtoVO.setDataCadastro(LocalDateTime.parse(resultado.getString(5), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));

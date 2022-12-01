@@ -22,7 +22,7 @@ public class UsuarioBO {
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		if(usuarioDAO.verificarExistenciaRegistroPorCpfDAO(usuarioVO)) {
 			System.out.println("Usuário ja cadastrado!");
-		}else {
+		} else {
 			usuarioVO = usuarioDAO.cadastrarUsuarioDAO(usuarioVO);
 		}
 		return usuarioVO;
@@ -42,6 +42,40 @@ public class UsuarioBO {
 		}
 		return resultado;
 		
+	}
+
+	public boolean  atualizarUsuarioBO(UsuarioVO usuarioVO) {
+		boolean resultado = false;
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		if(usuarioDAO.verificarExistenciaRegistroPorIdUsuarioDAO(usuarioVO.getIdUsuario())) {
+			if(usuarioDAO.verificarDesligamentoDeUsuarioPorIdUsuarioDAO(usuarioVO.getIdUsuario())) {
+				System.out.println("\nUsuário já se encontra desligado!");
+			} else {
+				resultado = usuarioDAO.atualizarUsuarioDAO(usuarioVO);
+			}
+		} else {
+			System.out.println("\nUsuário ainda não foi cadastrado!");
+		}
+		
+		return resultado;
+	}
+
+	public ArrayList<UsuarioVO> consultarTodosUsuariosBO() {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		ArrayList <UsuarioVO> listaUsuarioVO = usuarioDAO.consultarTodosUsuariosDAO();
+		if(listaUsuarioVO.isEmpty()) {
+			System.out.println("\nLista de usuários está vazia!");
+		}
+		return listaUsuarioVO;
+	}
+
+	public UsuarioVO consultarUsuarioBO(UsuarioVO usuarioVO) {
+		UsuarioDAO usuarioDAO = new UsuarioDAO();
+		UsuarioVO usuario = usuarioDAO.consultarUsuarioDAO(usuarioVO);
+		if(usuario == null) {
+			System.out.println("\nUsuário não localizado!");
+		}
+		return usuario;
 	}
 
 }
