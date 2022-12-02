@@ -40,7 +40,7 @@ public class Menu {
 				}
 				break;
 			}
-			case OPCAO_MENU_USUARIO: {// s� adm
+			case OPCAO_MENU_USUARIO: {// só adm
 				if (usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.ADMINISTRADOR)){
 					MenuUsuario menuUsuario = new MenuUsuario();
 					menuUsuario.apresentarMenuUsuario();

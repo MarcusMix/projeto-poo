@@ -44,5 +44,16 @@ public class ProdutoDAO {
 		}
 		return listaProdutosVO;
 	}
+	
+	
+
+	public ArrayList<ProdutoVO> consultarTodosUsuariosDAO() {
+
+	}
+	
+	public ArrayList<ProdutoVO> consultarUsuariosDAO() {
+
+	}
+	
 
 }
