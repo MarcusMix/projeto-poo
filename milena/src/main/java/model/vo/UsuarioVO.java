@@ -3,21 +3,22 @@ package model.vo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+// representacao em java de uma tabela do sql
 public class UsuarioVO {
-		
+
 	private int idUsuario;
-	private TipoUsuarioVO tipoUsuarioVO ;
+	private TipoUsuarioVO tipoUsuarioVO;
 	private String nome;
 	private String cpf;
 	private String email;
 	private String telefone;
-	private LocalDateTime dataCadrasto;
+	private LocalDateTime dataCadastro;
 	private LocalDateTime dataExpiracao;
 	private String login;
 	private String senha;
-	
+
 	public UsuarioVO(int idUsuario, TipoUsuarioVO tipoUsuarioVO, String nome, String cpf, String email, String telefone,
-			LocalDateTime dataCadrasto, LocalDateTime dataExpiracao, String login, String senha) {
+			LocalDateTime dataCadastro, LocalDateTime dataExpiracao, String login, String senha) {
 		super();
 		this.idUsuario = idUsuario;
 		this.tipoUsuarioVO = tipoUsuarioVO;
@@ -25,7 +26,7 @@ public class UsuarioVO {
 		this.cpf = cpf;
 		this.email = email;
 		this.telefone = telefone;
-		this.dataCadrasto = dataCadrasto;
+		this.dataCadastro = dataCadastro;
 		this.dataExpiracao = dataExpiracao;
 		this.login = login;
 		this.senha = senha;
@@ -83,12 +84,12 @@ public class UsuarioVO {
 		this.telefone = telefone;
 	}
 
-	public LocalDateTime getDataCadrasto() {
-		return dataCadrasto;
+	public LocalDateTime getDataCadastro() {
+		return dataCadastro;
 	}
 
-	public void setDataCadrasto(LocalDateTime dataCadrasto) {
-		this.dataCadrasto = dataCadrasto;
+	public void setDataCadastro(LocalDateTime dataCadastro) {
+		this.dataCadastro = dataCadastro;
 	}
 
 	public LocalDateTime getDataExpiracao() {
@@ -116,29 +117,27 @@ public class UsuarioVO {
 	}
 
 	public void imprimir() {
-		System.out.printf("\n%3d  %-13s  %-20s  %-11s  %-25s  %-13s  "
-				+ "%-24s  %-24s  %-10s  %-10s  ",
+		System.out.printf("\n%3d  %-13s  %-20s  %-11s  %-25s  %-13s  %-24s  %-24s  %-10s  %-10s  ",
 				this.getIdUsuario(),
 				this.getTipoUsuarioVO(),
 				this.getNome(),
 				this.getCpf(),
 				this.getEmail(),
 				this.getTelefone(),
-				this.validarData(this.getDataCadrasto()),
+				this.validarData(this.getDataCadastro()),
 				this.validarData(this.getDataExpiracao()),
 				this.getLogin(),
 				this.getSenha()
 				);
-		
+
 	}
 
 	private String validarData(LocalDateTime data) {
 		String resultado = "";
 		if(data != null) {
-			resultado = data.format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm:ss"));
+			resultado = data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
 		}
 		return resultado;
 	}
 
-	
 }

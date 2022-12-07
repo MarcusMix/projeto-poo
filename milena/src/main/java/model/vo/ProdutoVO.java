@@ -4,19 +4,18 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
 public class ProdutoVO {
-	
-	private int idProduto;
-	private TipoProdutoVO tipoProduto;
-	private String nome;
-	private double preco;
-	private LocalDateTime dataCadastro;
-	private LocalDateTime dataExclusao;
-	
-	public ProdutoVO(int idProduto, TipoProdutoVO tipoProduto, String nome, double preco, LocalDateTime dataCadastro,
+	public int idProduto;
+	public TipoProdutoVO tipoProdutoVO;
+	public String nome; // varchar(255), e Unique??
+	public double preco; // numeric(10,2) ?
+	public LocalDateTime dataCadastro; // datetime
+	public LocalDateTime dataExclusao; // datetime
+
+	public ProdutoVO(int idProduto, TipoProdutoVO tipoProdutoVO, String nome, double preco, LocalDateTime dataCadastro,
 			LocalDateTime dataExclusao) {
 		super();
 		this.idProduto = idProduto;
-		this.tipoProduto = tipoProduto;
+		this.tipoProdutoVO = tipoProdutoVO;
 		this.nome = nome;
 		this.preco = preco;
 		this.dataCadastro = dataCadastro;
@@ -25,6 +24,7 @@ public class ProdutoVO {
 
 	public ProdutoVO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getIdProduto() {
@@ -35,12 +35,12 @@ public class ProdutoVO {
 		this.idProduto = idProduto;
 	}
 
-	public TipoProdutoVO getTipoProduto() {
-		return tipoProduto;
+	public TipoProdutoVO getTipoProdutoVO() {
+		return tipoProdutoVO;
 	}
 
-	public void setTipoProduto(TipoProdutoVO tipoProduto) {
-		this.tipoProduto = tipoProduto;
+	public void setTipoProdutoVO(TipoProdutoVO tipoProdutoVO) {
+		this.tipoProdutoVO = tipoProdutoVO;
 	}
 
 	public String getNome() {
@@ -74,26 +74,20 @@ public class ProdutoVO {
 	public void setDataExclusao(LocalDateTime dataExclusao) {
 		this.dataExclusao = dataExclusao;
 	}
-	
-	
+
 	public void imprimir() {
-		System.out.printf("\n%3s %-13s %-20s %-7s %-24s",
-				this.getIdProduto(),
-				this.getTipoProduto(),
-				this.getNome(),
-				this.getPreco(),
-				this.validarData(this.getDataCadastro()),
+		System.out.printf("\n%3d  %-13s  %-20s  %-7s  %-24s  %-24s", this.getIdProduto(), this.getTipoProdutoVO(),
+				this.getNome(), this.getPreco(), this.validarData(this.getDataCadastro()),
 				this.validarData(this.getDataExclusao()));
+
 	}
 
 	private String validarData(LocalDateTime data) {
 		String resultado = "";
 		if(data != null) {
-			resultado = data.format(DateTimeFormatter.ofPattern("dd/MM/yy HH:mm:ss"));
+			resultado = data.format(DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss"));
 		}
-		return null;
+		return resultado;
 	}
-	
-	
-	
+
 }

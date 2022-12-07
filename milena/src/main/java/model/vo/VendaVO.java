@@ -1,22 +1,43 @@
 package model.vo;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 public class VendaVO {
-	private int idUsuario;
-	private TipoUsuarioVO tipoUsuarioVO ;
-	private String nome;
-	private String cpf;
-	private String email;
-	private String telefone;
-	private LocalDateTime dataCadrasto;
-	private LocalDateTime dataExpiracao;
 
-	
-	
+	private int idVenda;
+	private int idUsuario;
+	private ArrayList<ItemVendaVO> listaItemVendaVO;
+	private int numeroPedido;
+	private LocalDateTime dataVenda;
+	private LocalDateTime dataCancelamento;
+	private boolean flagEntrega; // bit ?
+	private double taxaEntrega; // numeric(10,2)
+
+	public VendaVO(int idVenda, int idUsuario, ArrayList<ItemVendaVO> listaItemVendaVO, int numeroPedido,
+			LocalDateTime dataVenda, LocalDateTime dataCancelamento, boolean flagEntrega, double taxaEntrega) {
+		super();
+		this.idVenda = idVenda;
+		this.idUsuario = idUsuario;
+		this.listaItemVendaVO = listaItemVendaVO;
+		this.numeroPedido = numeroPedido;
+		this.dataVenda = dataVenda;
+		this.dataCancelamento = dataCancelamento;
+		this.flagEntrega = flagEntrega;
+		this.taxaEntrega = taxaEntrega;
+	}
 
 	public VendaVO() {
 		super();
+		// TODO Auto-generated constructor stub
+	}
+
+	public int getIdVenda() {
+		return idVenda;
+	}
+
+	public void setIdVenda(int idVenda) {
+		this.idVenda = idVenda;
 	}
 
 	public int getIdUsuario() {
@@ -27,60 +48,52 @@ public class VendaVO {
 		this.idUsuario = idUsuario;
 	}
 
-	public TipoUsuarioVO getTipoUsuarioVO() {
-		return tipoUsuarioVO;
+	public ArrayList<ItemVendaVO> getListaItemVendaVO() {
+		return listaItemVendaVO;
 	}
 
-	public void setTipoUsuarioVO(TipoUsuarioVO tipoUsuarioVO) {
-		this.tipoUsuarioVO = tipoUsuarioVO;
+	public void setListaItemVendaVO(ArrayList<ItemVendaVO> listaItemVendaVO) {
+		this.listaItemVendaVO = listaItemVendaVO;
 	}
 
-	public String getNome() {
-		return nome;
+	public int getNumeroPedido() {
+		return numeroPedido;
 	}
 
-	public void setNome(String nome) {
-		this.nome = nome;
+	public void setNumeroPedido(int numeroPedido) {
+		this.numeroPedido = numeroPedido;
 	}
 
-	public String getCpf() {
-		return cpf;
+	public LocalDateTime getDataVenda() {
+		return dataVenda;
 	}
 
-	public void setCpf(String cpf) {
-		this.cpf = cpf;
+	public void setDataVenda(LocalDateTime dataVenda) {
+		this.dataVenda = dataVenda;
 	}
 
-	public String getEmail() {
-		return email;
+	public LocalDateTime getDataCancelamento() {
+		return dataCancelamento;
 	}
 
-	public void setEmail(String email) {
-		this.email = email;
+	public void setDataCancelamento(LocalDateTime dataCancelamento) {
+		this.dataCancelamento = dataCancelamento;
 	}
 
-	public String getTelefone() {
-		return telefone;
+	public boolean isFlagEntrega() {
+		return flagEntrega;
 	}
 
-	public void setTelefone(String telefone) {
-		this.telefone = telefone;
+	public void setFlagEntrega(boolean flagEntrega) {
+		this.flagEntrega = flagEntrega;
 	}
 
-	public LocalDateTime getDataCadrasto() {
-		return dataCadrasto;
+	public double getTaxaEntrega() {
+		return taxaEntrega;
 	}
 
-	public void setDataCadrasto(LocalDateTime dataCadrasto) {
-		this.dataCadrasto = dataCadrasto;
-	}
-
-	public LocalDateTime getDataExpiracao() {
-		return dataExpiracao;
-	}
-
-	public void setDataExpiracao(LocalDateTime dataExpiracao) {
-		this.dataExpiracao = dataExpiracao;
+	public void setTaxaEntrega(double taxaEntrega) {
+		this.taxaEntrega = taxaEntrega;
 	}
 
 }

@@ -10,7 +10,7 @@ public class Menu {
 	private static final int OPCAO_MENU_PRODUTO = 2;
 	private static final int OPCAO_MENU_RELATORIO = 3;
 	private static final int OPCAO_MENU_USUARIO = 4;
-	private static final int OPCAO_MENU_VOLTAR = 5;
+	private static final int OPCAO_MENU_VOLTAR = 9;
 
 	Scanner teclado = new Scanner(System.in);
 
@@ -21,34 +21,33 @@ public class Menu {
 			switch (opcao) {
 			case OPCAO_MENU_VENDA: {// todos
 				MenuVenda menuVenda = new MenuVenda();
-				menuVenda.apresentarMenuVendas(usuarioVO);
-				System.out.println("Acessando Menu de Vendas....");
+				menuVenda.apresentarMenuVenda(usuarioVO);
 				break;
 			}
 			case OPCAO_MENU_PRODUTO: {// adm e funcionario
-				if (usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.FUNCIONARIO)
-						|| usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.ADMINISTRADOR)) {
-					System.out.println("Acessando Menu de Produto....");
-					
+				if (usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.FUNCIONARIO) || usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.ADMINISTRADOR)) {
+					MenuProduto menuProduto = new MenuProduto();
+					menuProduto.apresentarMenuProduto();
 				}
 				break;
 			}
 			case OPCAO_MENU_RELATORIO: {// adm e funcionario
-				if (usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.FUNCIONARIO)
-						|| usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.ADMINISTRADOR)) {
-					System.out.println("Acessando Menu de Relat�rios....");					
+				if (usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.FUNCIONARIO) || usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.ADMINISTRADOR)) {
+					MenuRelatorio menuRelatorio = new MenuRelatorio();
+					menuRelatorio.apresentarMenuRelatorio();
 				}
 				break;
 			}
 			case OPCAO_MENU_USUARIO: {// só adm
-				if (usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.ADMINISTRADOR)){
+				if (usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.ADMINISTRADOR)) {
 					MenuUsuario menuUsuario = new MenuUsuario();
 					menuUsuario.apresentarMenuUsuario();
 				}
+
 				break;
 			}
 			default: {
-				System.out.println("Opção inválida!");
+				System.out.println("Opção Inválida");
 			}
 			}
 			opcao = this.apresentarOpcoesMenu(usuarioVO);
@@ -57,20 +56,17 @@ public class Menu {
 
 	private int apresentarOpcoesMenu(UsuarioVO usuarioVO) {
 		System.out.println("\n---------Sistema Foodtruck---------");
-		System.out.println("\n---------Menu Principal---------");
-		System.out.println("\n---------Opções---------");
-		System.out.println(OPCAO_MENU_VENDA + " Menu Vendas");
-		if (usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.FUNCIONARIO)
-				|| usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.ADMINISTRADOR)) {
-			System.out.println(OPCAO_MENU_PRODUTO + " Menu Produto");
-			System.out.println(OPCAO_MENU_RELATORIO + " Menu Relatórios");
+		System.out.println("\n---------Menu Principal------------");
+		System.out.println("\n---------Opções--------------------");
+		System.out.println(OPCAO_MENU_VENDA + " - Menu Vendas");
+		if (usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.FUNCIONARIO) || usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.ADMINISTRADOR)) {
+			System.out.println(OPCAO_MENU_PRODUTO + " - Menu Produto");
+			System.out.println(OPCAO_MENU_RELATORIO + " - Menu Relatórios");
 		}
-		if (usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.ADMINISTRADOR)){
-			System.out.println(OPCAO_MENU_USUARIO + " Menu Usuário");
+		if (usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.ADMINISTRADOR)) {
+			System.out.println(OPCAO_MENU_USUARIO + " - Menu Usuários");
 		}
-		
-		
-		System.out.println(OPCAO_MENU_VOLTAR + " Menu Voltar");
+		System.out.println(OPCAO_MENU_VOLTAR + " - Menu Voltar");
 		System.out.print("\nDigite uma opção: ");
 
 		return Integer.parseInt(teclado.nextLine());

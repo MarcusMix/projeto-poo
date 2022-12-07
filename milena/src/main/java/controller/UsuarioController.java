@@ -1,4 +1,4 @@
-package controler;
+package controller;
 
 import java.util.ArrayList;
 
@@ -23,7 +23,7 @@ public class UsuarioController {
 		return usuarioBO.cadastrarUsuarioBO(usuarioVO);	
 	}
 
-	public boolean excluirUsuarioController(UsuarioVO usuarioVO) {
+	public static boolean excluirUsuarioController(UsuarioVO usuarioVO) {
 		UsuarioBO usuarioBO = new UsuarioBO();
 		usuarioBO.excluirUsuarioBO(usuarioVO);
 		return false;
@@ -42,6 +42,16 @@ public class UsuarioController {
 	public UsuarioVO consultarUsuarioController(UsuarioVO usuarioVO) {
 		UsuarioBO usuarioBO = new UsuarioBO();
 		return usuarioBO.consultarUsuarioBO(usuarioVO);
+	}
+
+	public ArrayList<TipoUsuarioVO> consultarTipoUsuarios() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public ArrayList<UsuarioVO> consultarTodosUsuariosController() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
