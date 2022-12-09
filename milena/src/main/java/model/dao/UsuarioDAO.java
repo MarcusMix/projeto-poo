@@ -242,7 +242,7 @@ public class UsuarioDAO {
 			usuarioVO.setEmail(resultado.getString(5));
 			usuarioVO.setTelefone(resultado.getString(6));
 			usuarioVO.setDataCadastro(LocalDateTime.parse(resultado.getString(7), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-			if(resultado.getString(8)!=null) {
+			if(resultado.getString(8) != null) {
 				usuarioVO.setDataExpiracao(LocalDateTime.parse(resultado.getString(8), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 			}
 			usuarioVO.setLogin(resultado.getString(9));
@@ -251,7 +251,7 @@ public class UsuarioDAO {
 		}
 	} catch (SQLException e) {
 		System.out.println("Erro ao executar a query do método consultarTodosUsuariosDAO!");
-		System.out.println("Erro: "+e.getMessage());
+		System.out.println("Erro: " + e.getMessage());
 	} finally {
 		Banco.closeResultSet(resultado);
 		Banco.closeStatement(stmt);
@@ -264,36 +264,37 @@ public class UsuarioDAO {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet resultado = null;
-		UsuarioVO usuario = new UsuarioVO();
-		String query = "SELECT u.idUsuario, tipo.descricao, u.nome, u.cpf, u.email, u.telefone, u.dataCastro, "
-				+"u.dataExpiracao, u.login, u.senha "
-				+"WHERE u.idTipoUsuario = tipo.idTipoUsuario"
-				+"AND u.idUsuario = "+usuarioVO.getIdUsuario();
-	try {
-		resultado = stmt.executeQuery(query);
-		if(resultado.next()) {
-			usuario.setIdUsuario(Integer.parseInt(resultado.getString(1)));
-			usuario.setTipoUsuarioVO(TipoUsuarioVO.valueOf(resultado.getString(2)));
-			usuario.setNome(resultado.getString(3));
-			usuario.setCpf(resultado.getString(4));
-			usuario.setEmail(resultado.getString(5));
-			usuario.setTelefone(resultado.getString(6));
-			usuario.setDataCadastro(LocalDateTime.parse(resultado.getString(7), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-			if(resultado.getString(8)!=null) {
-				usuario.setDataExpiracao(LocalDateTime.parse(resultado.getString(8), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+		String query =
+				"SELECT u.idUsuario, tipo.descricao, u.nome, u.cpf, u.email, u.telefone, "
+				+ "u.dataCadastro, u.dataExpiracao, u.login, u.senha "
+				+ "FROM usuario u, tipoUsuario tipo "
+				+ "WHERE u.idTipoUsuario = tipo.idTipoUsuario "
+				+ "AND u.idUsuario = " + usuarioVO.getIdUsuario();
+		try {
+			resultado = stmt.executeQuery(query);
+			if(resultado.next()) {
+				usuarioVO.setIdUsuario(Integer.parseInt(resultado.getString(1)));
+				usuarioVO.setTipoUsuarioVO(TipoUsuarioVO.valueOf(resultado.getString(2)));
+				usuarioVO.setNome(resultado.getString(3));
+				usuarioVO.setCpf(resultado.getString(4));
+				usuarioVO.setEmail(resultado.getString(5));
+				usuarioVO.setTelefone(resultado.getString(6));
+				usuarioVO.setDataCadastro(LocalDateTime.parse(resultado.getString(7), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+				if(resultado.getString(8) != null) {
+					usuarioVO.setDataExpiracao(LocalDateTime.parse(resultado.getString(8), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+				}
+				usuarioVO.setLogin(resultado.getString(9));
+				usuarioVO.setSenha(resultado.getString(10));
 			}
-			usuarioVO.setLogin(resultado.getString(9));
-			usuarioVO.setSenha(resultado.getString(10));
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar a query do método consultarUsuarioDAO!");
+			System.out.println("Erro: " + e.getMessage());
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
 		}
-	} catch (SQLException e) {
-		System.out.println("Erro ao executar a query do método consultarTodosUsuariosDAO!");
-		System.out.println("Erro: "+e.getMessage());
-	} finally {
-		Banco.closeResultSet(resultado);
-		Banco.closeStatement(stmt);
-		Banco.closeConnection(conn);
-	}
-	return usuario;
+		return usuarioVO;
 	}
 
 	public ArrayList<UsuarioVO> consultarListaEntregadores() {
@@ -306,7 +307,7 @@ public class UsuarioDAO {
 				+"FROM usuario u, tipoUsuario tipo "
 				+"WHERE u.idTipoUsuario = tipo.idTipoUsuario "
 				+"AND u.dataExpiracao is NULL "
-				+"AND tipo.descricao like '"+TipoUsuarioVO.ENTREGADOR.toString()+"'";
+				+"AND tipo.descricao like '" + TipoUsuarioVO.ENTREGADOR.toString()+"'";
 		try {
 			resultado = stmt.executeQuery(query);
 			while (resultado.next()) {// pois retornará varios registros

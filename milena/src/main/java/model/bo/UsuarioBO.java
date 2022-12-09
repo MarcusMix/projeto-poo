@@ -44,6 +44,7 @@ public class UsuarioBO {
 	}
 
 	public boolean atualizarUsuarioBO(UsuarioVO usuarioVO) {
+		
 		boolean resultado = false;
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
 		if (usuarioDAO.verificarExistenciaRegistroPorIdUsuarioDAO(usuarioVO.getIdUsuario())) {

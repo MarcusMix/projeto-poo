@@ -16,7 +16,7 @@ public class VendaDAO {
 	public VendaVO cadastraVendaDAO(VendaVO vendaVO) {
 		String query = "INSERT INTO venda (idUsuario, numeroPedido, dataVenda, flagEntrega";
 		if (vendaVO.isFlagEntrega()) {
-			query += ", taxaEntrega) VALEUS (?, ?, ?, ?, ?)";
+			query += ", taxaEntrega) VALUES (?, ?, ?, ?, ?)";
 		} else {
 			query += ") VALUES (?, ?, ?, ?)";
 		}
@@ -88,15 +88,16 @@ public class VendaDAO {
 		PreparedStatement pstmt = null;
 		int contador = 0;
 		boolean retorno = false;
+		ResultSet resultado = null;
 		try {
 			for (ItemVendaVO item : vendaVO.getListaItemVendaVO()) {
 				String query = "INSERT INTO itemVenda (idVenda, idProduto, quantidade) VALUES (?, ?, ?)";
-				pstmt = Banco.getPreparedStatement(conn, query);
+				pstmt = Banco.getPreparedStatementWithPk(conn, query);
 				pstmt.setInt(1, vendaVO.getIdVenda());
 				pstmt.setInt(2, item.getIdProduto());
 				pstmt.setInt(3, item.getQuantidade());
 				pstmt.execute();
-				ResultSet resultado = pstmt.getGeneratedKeys();
+				resultado = pstmt.getGeneratedKeys();
 				if (resultado.next()) {
 					item.setIdItemVenda(resultado.getInt(1));
 					contador++;
@@ -104,6 +105,7 @@ public class VendaDAO {
 			}
 			if (contador == vendaVO.getListaItemVendaVO().size()) {
 				retorno = true;
+				System.out.println("Venda cadastrada! ");
 			} else {
 				System.out.println("Nem todos os produtos foram cadastrados.");
 			}

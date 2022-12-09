@@ -10,6 +10,7 @@ public class VendasCanceladaDTO {
 	private double subtotal;
 	private double taxaEntrega;
 	private double total;
+	
 	public VendasCanceladaDTO(String nome, LocalDateTime dataCancelamento, double subtotal, double taxaEntrega,
 			double total) {
 		super();
@@ -19,40 +20,51 @@ public class VendasCanceladaDTO {
 		this.taxaEntrega = taxaEntrega;
 		this.total = total;
 	}
+	
 	public VendasCanceladaDTO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
+	
 	public String getNome() {
 		return nome;
 	}
+	
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
+	
 	public LocalDateTime getDataCancelamento() {
 		return dataCancelamento;
 	}
+	
 	public void setDataCancelamento(LocalDateTime dataCancelamento) {
 		this.dataCancelamento = dataCancelamento;
 	}
+	
 	public double getSubtotal() {
 		return subtotal;
 	}
+	
 	public void setSubtotal(double subtotal) {
 		this.subtotal = subtotal;
 	}
+	
 	public double getTaxaEntrega() {
 		return taxaEntrega;
 	}
+	
 	public void setTaxaEntrega(double taxaEntrega) {
 		this.taxaEntrega = taxaEntrega;
 	}
+	
 	public double getTotal() {
 		return total;
 	}
+	
 	public void setTotal(double total) {
 		this.total = total;
 	}
+	
 	public void imprimir() {
 		DecimalFormat df = new DecimalFormat("0.00");
 		System.out.printf("\n%-20s  %-24s  %12s  %12s  ",
@@ -62,6 +74,7 @@ public class VendasCanceladaDTO {
 				df.format(this.getTaxaEntrega()),
 				df.format(this.getTotal()));
 	}
+	
 	private String validarData(LocalDateTime data) {
 		String resultado = "";
 		if(data != null) {

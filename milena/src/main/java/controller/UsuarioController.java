@@ -23,10 +23,9 @@ public class UsuarioController {
 		return usuarioBO.cadastrarUsuarioBO(usuarioVO);	
 	}
 
-	public static boolean excluirUsuarioController(UsuarioVO usuarioVO) {
+	public boolean excluirUsuarioController(UsuarioVO usuarioVO) {
 		UsuarioBO usuarioBO = new UsuarioBO();
-		usuarioBO.excluirUsuarioBO(usuarioVO);
-		return false;
+		return usuarioBO.excluirUsuarioBO(usuarioVO);
 	}
 
 	public boolean atualizarUsuarioController(UsuarioVO usuarioVO) {
@@ -39,19 +38,20 @@ public class UsuarioController {
 		return usuarioBO.consultarTodosUsuariosBO();
 	}
 
-	public UsuarioVO consultarUsuarioController(UsuarioVO usuarioVO) {
-		UsuarioBO usuarioBO = new UsuarioBO();
-		return usuarioBO.consultarUsuarioBO(usuarioVO);
-	}
 
 	public ArrayList<TipoUsuarioVO> consultarTipoUsuarios() {
-		// TODO Auto-generated method stub
-		return null;
+		UsuarioBO usuarioBO = new UsuarioBO();
+		return usuarioBO.consultarTipoUsuariosBO();
 	}
 
 	public ArrayList<UsuarioVO> consultarTodosUsuariosController() {
-		// TODO Auto-generated method stub
-		return null;
+		UsuarioBO usuarioBO = new UsuarioBO();
+		return usuarioBO.consultarTodosUsuariosBO() ;
+	}
+	
+	public UsuarioVO consultarUsuarioController(UsuarioVO usuarioVO) {
+		UsuarioBO usuarioBO = new UsuarioBO();
+		return usuarioBO.consultarUsuarioBO(usuarioVO);
 	}
 
 }

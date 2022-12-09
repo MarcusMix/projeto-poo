@@ -137,8 +137,7 @@ public class MenuUsuario {
 	private void cadastrarUsuario(UsuarioVO usuarioVO) { // este metodo só poder ser chamado pelo adm
 		if (usuarioVO.getTipoUsuarioVO() == null) {// verificando se quem tá chamando é o adm
 			do {
-				usuarioVO
-						.setTipoUsuarioVO(TipoUsuarioVO.getTipoUsuarioVOPorValor(this.apresentarOpcoesTipoUsuarioVO()));
+				usuarioVO.setTipoUsuarioVO(TipoUsuarioVO.getTipoUsuarioVOPorValor(this.apresentarOpcoesTipoUsuarioVO()));
 			} while (usuarioVO.getTipoUsuarioVO() == null);
 		}
 		System.out.println("\nDigite o Nome: ");
@@ -260,7 +259,7 @@ public class MenuUsuario {
 			System.out.println("Os campos código do usuario e data de expiração são obrigatórios.");
 		} else {
 			UsuarioController usuarioController = new UsuarioController();
-			boolean resultado = UsuarioController.excluirUsuarioController(usuarioVO);
+			boolean resultado = usuarioController.excluirUsuarioController(usuarioVO);
 			if (resultado) {
 				System.out.println("\nUsuário excluído com sucesso!");
 			} else {
