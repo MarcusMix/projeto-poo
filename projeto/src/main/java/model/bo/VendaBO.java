@@ -45,14 +45,32 @@ public class VendaBO {
 		}
 		return vendaVO;
 	}
-	//Verificar se a venda existe na base de dados.
-	//Verificar se a venda já está cancelada na base de dados.
-	//Vefiricar se a data de cancelamento é posterior a data de venda.
-	//Se houver entrega verificar se a entra já foi realizada ou se está em rota de entrega.
+	
+	
 	public boolean cancelarVendaBO(VendaVO vendaVO) {
-		// TODO Auto-generated method stub
-		return false;
+		boolean resultado = false;
+		VendaDAO vendaDAO = new VendaDAO();
+		if(vendaDAO.verificarExistenciaRegistroPorIdVendaDAO(vendaVO.getIdVenda())) { // verificar se a venda existe
+			if(vendaDAO.verificarCancelamentoPorIdVendaDAO(vendaVO.getIdVenda())) {
+				System.out.println("\nProduto já se encontra deletado da base de dados!");
+			}else {
+				resultado = vendaDAO.excluirVendaDAO(vendaVO);
+			}
+		}else {
+			System.out.println("\nVenda não existe na base de dados!");
+		}
+		return resultado;
 	}
+//		VendaDAO vendaDAO = new VendaDAO();
+//		boolean resultado = false;
+//		if (vendaDAO.verificarCancelamentoPorIdVendaDAO(vendaVO.getIdVenda()) == true) {
+//			resultado = vendaDAO.excluirVendaDAO(vendaVO);
+//			} else {
+//				System.out.println("\nVenda não existe na base de dados!");
+//			}
+//		return resultado;
+	
+	
 
 	public boolean verificarVendaParaAtualizarSituacaoEntrega(VendaVO vendaVO) {
 		VendaDAO vendaDAO = new VendaDAO();

@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import model.bo.VendaBO;
 import model.vo.ItemVendaVO;
 import model.vo.VendaVO;
 
@@ -186,5 +187,27 @@ public class VendaDAO {
 		}
 		return retorno;
 	}
+
+	public boolean excluirVendaDAO(VendaVO vendaVO) {
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		boolean retorno = false;
+		String query = "UPDATE venda SET datacancelamento = '" + vendaVO.getDataCancelamento()
+		+ "' WHERE idvenda = "
+		+ vendaVO.getIdVenda();
+		try {
+			if (stmt.executeUpdate(query) == 1) {
+				retorno = true;
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao executar a query do método excluirVendaDAO");
+			System.out.println("Erro: " + erro.getMessage());
+		} finally {
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return retorno;
+	}
+
 
 }

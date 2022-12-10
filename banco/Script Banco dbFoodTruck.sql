@@ -95,6 +95,8 @@ INSERT INTO SITUACAOENTREGA (descricao) VALUES ('PEDIDO_ENTREGUE');
 INSERT INTO USUARIO (idtipousuario, nome, cpf, email, telefone, datacadastro, dataexpiracao, login, senha) 
 VALUES (1, 'Adriano de Melo', '01234567890', 'adriano@gmail.com', '91111-6666', '2022-10-01', null, 'adriano', 'adriano');
 INSERT INTO USUARIO (idtipousuario, nome, cpf, email, telefone, datacadastro, dataexpiracao, login, senha) 
+VALUES (5, 'Alu ak ba', '01234567897', 'ak47@gmail.com', '91111-6665', '2022-10-09', null, 'a', 'a');
+INSERT INTO USUARIO (idtipousuario, nome, cpf, email, telefone, datacadastro, dataexpiracao, login, senha) 
 VALUES (2, 'Jessica Melo', '09876543210', 'jessica@gmail.com', '91111-7777', '2022-10-01', null, 'cliente', 'cliente');
 INSERT INTO USUARIO (idtipousuario, nome, cpf, email, telefone, datacadastro, dataexpiracao, login, senha) 
 VALUES (3, 'Bruna Melo', '09876453210', 'bruna@gmail.com', '91111-8888', '2022-10-01', null, 'func', 'func');
