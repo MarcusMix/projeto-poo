@@ -108,13 +108,10 @@ public class ProdutoDAO {
 	}
 
 	public ProdutoVO cadastrarProdutosDAO(ProdutoVO produtoVO) {
-		// o que vai voltar já tem a PK cadastrada
 				String query = "INSERT INTO produto (idtipoproduto, nome, preco, datacadastro) VALUES (?, ?, ?, ?)";
 				Connection conn = Banco.getConnection();
 				PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, query);
 				try {
-					 // mascara "?" será trocada pelo Valor int em
-					// tempo de execucao
 					pstmt.setInt(1, produtoVO.getTipoProdutoVO().getValor());
 					pstmt.setString(2, produtoVO.getNome());
 					pstmt.setDouble(3, produtoVO.getPreco());
@@ -142,7 +139,7 @@ public class ProdutoDAO {
 			String query = "SELECT descricao FROM tipoproduto";
 			try {
 				resultado = stmt.executeQuery(query);
-				while (resultado.next()) {// pois retornará varios registros
+				while (resultado.next()) {
 					TipoProdutoVO tipoProdutoVO = TipoProdutoVO.valueOf(resultado.getString(1));
 					listaTipoProdutoVO.add(tipoProdutoVO);
 				}
@@ -158,24 +155,25 @@ public class ProdutoDAO {
 			return listaTipoProdutoVO;
 		}
 
+	
 	public ArrayList<ProdutoVO> consultarTodosProdutosVigentesDAO() {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet resultado = null;
 		ArrayList<ProdutoVO> listaProdutosVO = new ArrayList<ProdutoVO>();
 		String query = "SELECT p.idProduto, tipo.descricao, p.nome, p.preco, p.dataCadastro "
-				+ "FROM produto p, tipoProduto tipo "
-				+ "WHERE p.idTipoProduto = tipo.idTipoProduto "
+				+ "FROM produto p, tipoProduto tipo " + "WHERE p.idTipoProduto = tipo.idTipoProduto "
 				+ "AND p.dataExclusao is NULL";
 		try {
 			resultado = stmt.executeQuery(query);
-			while (resultado.next()) {// pois retornará varios registros
+			while (resultado.next()) {
 				ProdutoVO produtoVO = new ProdutoVO();
 				produtoVO.setIdProduto(Integer.parseInt(resultado.getString(1)));
 				produtoVO.setTipoProdutoVO(TipoProdutoVO.valueOf(resultado.getString(2)));
 				produtoVO.setNome(resultado.getString(3));
 				produtoVO.setPreco(Double.parseDouble(resultado.getString(4)));
-				produtoVO.setDataCadastro(LocalDateTime.parse(resultado.getString(5), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+				produtoVO.setDataCadastro(LocalDateTime.parse(resultado.getString(5),
+						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 				listaProdutosVO.add(produtoVO);
 
 			}
@@ -190,10 +188,39 @@ public class ProdutoDAO {
 
 		return listaProdutosVO;
 	}
-
+	
 	public ProdutoVO consultarProdutoDAO(ProdutoVO produtoVO) {
-		// TODO Auto-generated method stub
-		return null;
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		ResultSet resultado = null;
+		String query = "SELECT p.idProduto, tipo.descricao, p.nome, p.preco, " 
+				+ "p.dataCadastro, p.dataExclusao "
+				+ "FROM produto p, tipoProduto tipo " + "WHERE p.idTipoProduto = tipo.idTipoProduto "
+				+ "AND p.idProduto = " + produtoVO.getIdProduto();
+		try {
+			resultado = stmt.executeQuery(query);
+			if (resultado.next()) {
+				produtoVO.setIdProduto(Integer.parseInt(resultado.getString(1)));
+				produtoVO.setTipoProdutoVO(TipoProdutoVO.valueOf(resultado.getString(2)));
+				produtoVO.setNome(resultado.getString(3));
+				produtoVO.setPreco(Double.parseDouble(resultado.getString(4)));
+				produtoVO.setDataCadastro(LocalDateTime.parse(resultado.getString(5),
+						DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+				if (resultado.getString(6) != null) {
+					produtoVO.setDataExclusao(LocalDateTime.parse(resultado.getString(6),
+							DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
+				}
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao executar a query do método consultarUsuarioDAO!");
+			System.out.println("Erro: " + erro.getMessage());
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return produtoVO;
+
 	}
 
 }

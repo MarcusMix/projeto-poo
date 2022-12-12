@@ -17,7 +17,7 @@ public class MenuProduto {
 	private static final int OPCAO_MENU_PRODUTO_VOLTAR = 9;
 
 	private static final int OPCAO_MENU_CONSULTAR_TODOS_PRODUTOS = 1;
-	private static final int OPCAO_MENU_CONSULTAR_UM_PRODUTOS = 2;
+	private static final int OPCAO_MENU_CONSULTAR_UM_PRODUTO = 2;
 	private static final int OPCAO_MENU_CONSULTAR_PRODUTO_VOLTAR = 9;
 
 	Scanner teclado = new Scanner(System.in);
@@ -85,7 +85,7 @@ public class MenuProduto {
 		if (this.validarCamposCadastro(produtoVO)) {
 			ProdutoController ProdutoController = new ProdutoController();
 			produtoVO = ProdutoController.cadastrarProdutoController(produtoVO);
-			if (produtoVO.getIdProduto() != 0) { // se ele tiver uma chave primaria == ele foi cadastrado
+			if (produtoVO.getIdProduto() != 0) { 
 				System.out.println("Produto foi cadastrado com sucesso!");
 			} else {
 				System.out.println("Não foi possivel cadastrar o Produto!");
@@ -101,8 +101,6 @@ public class MenuProduto {
 		System.out.println("Opções: ");
 		for (TipoProdutoVO element : listaTipoProdutoVO) {
 			System.out.println(element.getValor() + " - " + element);
-			// get i pega o numero que esta no ENUM (1 2 3 4 as classes de pessoas dos
-			// sistema)
 		}
 
 		System.out.print("\nDigite uma opção: ");
@@ -128,12 +126,66 @@ public class MenuProduto {
 	}
 
 	private void consultarProduto() {
-		// TODO Auto-generated method stub
+		int opcao = this.apresentarOpcoesConsulta();
+		ProdutoController produtoController = new ProdutoController();
 
+		while (opcao != OPCAO_MENU_PRODUTO_VOLTAR) {
+			switch (opcao) {
+				case OPCAO_MENU_CONSULTAR_TODOS_PRODUTOS: {
+					opcao = OPCAO_MENU_CONSULTAR_PRODUTO_VOLTAR;
+					ArrayList<ProdutoVO> listaProdutoVO = produtoController.consultarTodosProdutosVigentesController();
+					System.out.println("---------- RESULTADO DA CONSULTA ----------");
+					System.out.printf("\n%3s  %-13s  %-20s  %-11s  %-24s  %-24s  ", "ID", "TIPO PRODUTO", "NOME", "PRECO",
+							"DATA CADASTRO", "DATA EXCLUSAO");
+					for (int i = 0; i < listaProdutoVO.size(); i++) {
+						listaProdutoVO.get(i).imprimir();
+					}
+					System.out.println();
+					break;
+				}
+	
+				case OPCAO_MENU_CONSULTAR_UM_PRODUTO: {
+					opcao = OPCAO_MENU_CONSULTAR_PRODUTO_VOLTAR;
+					ProdutoVO produtoVO = new ProdutoVO();
+					System.out.print("\nInforme o ID do produto: ");
+					produtoVO.setIdProduto(Integer.parseInt(teclado.nextLine()));
+					if (produtoVO.getIdProduto() != 0) {
+						ProdutoVO produto = produtoController.consultarProdutoController(produtoVO);
+						System.out.println("---------- RESULTADO DA CONSULTA ----------");
+						System.out.printf("\n%3s  %-13s  %-20s  %-11s  %-24s  %-24s  ", "ID", "TIPO PRODUTO", "NOME",
+								"PRECO", "DATA CADASTRO", "DATA EXCLUSAO");
+	
+						produto.imprimir();
+	
+						System.out.println();
+					} else {
+						System.out.println("O campo ID do produto é OBRIGATÓRIO!!");
+					}
+					break;
+				}
+	
+				default: {
+					System.out.println("\nOpcão Inválida!!");
+					opcao = this.apresentarOpcoesConsulta();
+				}
+
+			}
+		}
+	}
+
+	private int apresentarOpcoesConsulta() {
+		System.out.println("\n--------- Sistema Foodtruck --------");
+		System.out.println("--------- Menu de Relatório ------------");
+		System.out.println("\nOpções: ");
+		System.out.println(OPCAO_MENU_CONSULTAR_TODOS_PRODUTOS + " - Consultar todos os produtos");
+		System.out.println(OPCAO_MENU_CONSULTAR_UM_PRODUTO + " - Consultar um produto específico");
+		System.out.println(OPCAO_MENU_PRODUTO_VOLTAR + " - Voltar");
+		System.out.println("\nDigite uma opção: ");
+		return Integer.parseInt(teclado.nextLine());
 	}
 
 	private void atualizarProduto() {
-		// TODO Auto-generated method stub
+		
 
 	}
 

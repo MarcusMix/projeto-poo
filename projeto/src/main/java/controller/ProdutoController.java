@@ -37,6 +37,6 @@ public class ProdutoController {
 		ProdutoBO produtoBO = new ProdutoBO();
 		return produtoBO.consultarTodosProdutosVigentesBO();
 	}
-
+	
 
 }
