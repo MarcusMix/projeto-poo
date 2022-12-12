@@ -31,7 +31,7 @@ public class UsuarioBO {
 	public boolean excluirUsuarioBO(UsuarioVO usuarioVO) {
 		boolean resultado = false;
 		UsuarioDAO usuarioDAO = new UsuarioDAO();
-		if (usuarioDAO.verificarExistenciaRegistroPorIdUsuarioDAO(usuarioVO.getIdUsuario())) { // o cara existe
+		if (usuarioDAO.verificarExistenciaRegistroPorIdUsuarioDAO(usuarioVO.getIdUsuario())) { 
 			if (usuarioDAO.verificarDesligamentoUsuarioPorIdUsuarioDAO(usuarioVO.getIdUsuario())) {
 				System.out.println("\nUsuário já se encontra desligado na base de dados!");
 			} else {
