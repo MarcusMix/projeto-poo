@@ -210,7 +210,7 @@ public class UsuarioDAO {
 				+ usuarioVO.getSenha() + "' WHERE idusuario = " + usuarioVO.getIdUsuario();
 
 		try {
-			if (stmt.executeUpdate(query) == 1) {// verifica o workbench retorne uma linha afetada
+			if (stmt.executeUpdate(query) == 1) {
 				retorno = true;
 			}
 		} catch (SQLException erro) {
@@ -310,7 +310,7 @@ public class UsuarioDAO {
 				+"AND tipo.descricao like '" + TipoUsuarioVO.ENTREGADOR.toString()+"'";
 		try {
 			resultado = stmt.executeQuery(query);
-			while (resultado.next()) {// pois retornará varios registros
+			while (resultado.next()) {
 				UsuarioVO usuarioVO = new UsuarioVO();
 				usuarioVO.setIdUsuario(Integer.parseInt(resultado.getString(1)));
 				usuarioVO.setTipoUsuarioVO(TipoUsuarioVO.valueOf(resultado.getString(2)));
@@ -319,10 +319,8 @@ public class UsuarioDAO {
 				usuarioVO.setEmail(resultado.getString(5));
 				usuarioVO.setTelefone(resultado.getString(6));
 				usuarioVO.setDataCadastro(LocalDateTime.parse(resultado.getString(7), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
-				usuarioVO.setLogin(resultado.getString(8)); //9
-				usuarioVO.setSenha(resultado.getString(9)); //10
-
-
+				usuarioVO.setLogin(resultado.getString(8)); 
+				usuarioVO.setSenha(resultado.getString(9)); 
 			}
 		} catch (SQLException erro) {
 			System.out.println("Erro ao executar a query do método consultarTipoUsuariosDAO");

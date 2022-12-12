@@ -10,7 +10,6 @@ import model.vo.TipoUsuarioVO;
 import model.vo.UsuarioVO;
 
 public class MenuUsuario {
-	// atributos de classe
 	private static final int OPCAO_MENU_CADASTRAR_USUARIO = 1;
 	private static final int OPCAO_MENU_CONSULTAR_USUARIO = 2;
 	private static final int OPCAO_MENU_ATUALIZAR_USUARIO = 3;
@@ -60,7 +59,6 @@ public class MenuUsuario {
 			case OPCAO_MENU_CONSULTAR_TODOS_USUARIOS: {
 				opcao = OPCAO_MENU_CONSULTAR_USUARIO_VOLTAR;
 				ArrayList<UsuarioVO> listaUsuariosVO = usuarioController.consultarTodosUsuariosController();
-				// Lista montada
 				System.out.println("---------- RESULTADO DA CONSULTA ---------");
 				System.out.printf("\n%3s  %-13s  %-20s  %-11s  %-25s  %-13s  %-24s  %-24s  %-10s  %-10s  ", "ID",
 						"TIPO USUARIO", "NOME", "CPF", "E-MAIL", "TELEFONE", "DATA CADASTRO", "DATA EXPIRAÇÃO", "LOGIN",
@@ -74,7 +72,7 @@ public class MenuUsuario {
 
 			case OPCAO_MENU_CONSULTAR_UM_USUARIO: {
 				opcao = OPCAO_MENU_CONSULTAR_USUARIO_VOLTAR;
-				UsuarioVO usuarioVO = new UsuarioVO(); // instanciado objeto
+				UsuarioVO usuarioVO = new UsuarioVO(); 
 				System.out.print("\nInforme o código do usuário: ");
 				usuarioVO.setIdUsuario(Integer.parseInt(teclado.nextLine()));
 				if (usuarioVO.getIdUsuario() != 0) {
@@ -129,13 +127,13 @@ public class MenuUsuario {
 		return Integer.parseInt(teclado.nextLine());
 	}
 
-	public void cadastrarNovoUsuario(UsuarioVO usuarioVO) { // um setado o tipo do cliente, sendo um usuario externo
+	public void cadastrarNovoUsuario(UsuarioVO usuarioVO) {
 		this.cadastrarUsuario(usuarioVO);
 
 	}
 
-	private void cadastrarUsuario(UsuarioVO usuarioVO) { // este metodo só poder ser chamado pelo adm
-		if (usuarioVO.getTipoUsuarioVO() == null) {// verificando se quem tá chamando é o adm
+	private void cadastrarUsuario(UsuarioVO usuarioVO) { 
+		if (usuarioVO.getTipoUsuarioVO() == null) {
 			do {
 				usuarioVO.setTipoUsuarioVO(TipoUsuarioVO.getTipoUsuarioVOPorValor(this.apresentarOpcoesTipoUsuarioVO()));
 			} while (usuarioVO.getTipoUsuarioVO() == null);
@@ -159,7 +157,7 @@ public class MenuUsuario {
 		if (this.validarCamposCadastro(usuarioVO)) {
 			UsuarioController usuarioController = new UsuarioController();
 			usuarioVO = usuarioController.cadastrarUsuarioController(usuarioVO);
-			if (usuarioVO.getIdUsuario() != 0) { // se ele tiver uma chave primaria
+			if (usuarioVO.getIdUsuario() != 0) {
 				System.out.println("Usuário foi cadastrado com sucesso!");
 			} else {
 				System.out.println("Não foi possivel cadastrar o usuário!");
@@ -170,7 +168,7 @@ public class MenuUsuario {
 
 	private boolean validarCamposCadastro(UsuarioVO usuarioVO) {
 		boolean resultado = true;
-		if (usuarioVO.getNome() == null || usuarioVO.getNome().isEmpty()) { // get.Nome é String que é Referencia
+		if (usuarioVO.getNome() == null || usuarioVO.getNome().isEmpty()) { 
 			System.out.println("O campo nome é obrigatório.");
 			resultado = false;
 		}
@@ -206,8 +204,6 @@ public class MenuUsuario {
 		System.out.println("Opções: ");
 		for (TipoUsuarioVO element : listaTipoUsuarioVO) {
 			System.out.println(element.getValor() + " - " + element);
-			// get i pega o numero que esta no ENUM (1 2 3 4 as classes de pessoas dos
-			// sistema)
 		}
 
 		System.out.print("\nDigite uma opção: ");
@@ -239,7 +235,7 @@ public class MenuUsuario {
 		if (this.validarCamposCadastro(usuarioVO)) {
 			UsuarioController usuarioController = new UsuarioController();
 			boolean resultado = usuarioController.atualizarUsuarioController(usuarioVO);
-			if (resultado) { // se ele tiver uma chave primaria
+			if (resultado) { 
 				System.out.println("Usuário atualizado com sucesso!");
 			} else {
 				System.out.println("Não foi possivel atualizar o usuário!");
@@ -255,7 +251,7 @@ public class MenuUsuario {
 		usuarioVO.setDataExpiracao(
 				LocalDateTime.parse(teclado.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
 
-		if (usuarioVO.getIdUsuario() == 0 || usuarioVO.getDataExpiracao() == null) { // nao preencheu as informaçoes
+		if (usuarioVO.getIdUsuario() == 0 || usuarioVO.getDataExpiracao() == null) { 
 			System.out.println("Os campos código do usuario e data de expiração são obrigatórios.");
 		} else {
 			UsuarioController usuarioController = new UsuarioController();

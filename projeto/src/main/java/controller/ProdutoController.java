@@ -15,7 +15,7 @@ public class ProdutoController {
 
 	public boolean atualizarProdutoController(ProdutoVO produtoVO) {
 		ProdutoBO produtoBO = new ProdutoBO();
-		return produtoBO.atualizarProdutosBO(produtoVO);
+		return produtoBO.atualizarProdutoBO(produtoVO);
 	}
 
 	public static boolean excluirProdutoController(ProdutoVO produtoVO) {
@@ -37,6 +37,4 @@ public class ProdutoController {
 		ProdutoBO produtoBO = new ProdutoBO();
 		return produtoBO.consultarTodosProdutosVigentesBO();
 	}
-	
-
 }

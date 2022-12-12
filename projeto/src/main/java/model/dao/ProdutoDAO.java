@@ -23,7 +23,7 @@ public class ProdutoDAO {
 				+ "' WHERE idproduto = "
 				+ produtoVO.getIdProduto();
 		try {
-			if (stmt.executeUpdate(query) == 1) {// verifica o workbench retorne uma linha afetada
+			if (stmt.executeUpdate(query) == 1) {
 				retorno = true;
 			}
 		} catch (SQLException erro) {
@@ -61,12 +61,12 @@ public class ProdutoDAO {
 		return retorno;
 	}
 
-	public boolean verificarExistenciaRegistroPorIdProdutoDAO(int idProduto) {
+	public boolean verificarExistenciaRegistroPorIdProdutoDAO(int i) {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		ResultSet resultado = null;
 		boolean retorno = false;
-		String query = "SELECT idproduto FROM produto WHERE idproduto = " + idProduto;
+		String query = "SELECT idproduto FROM produto WHERE idproduto = " + i;
 		try {
 			resultado = stmt.executeQuery(query);
 			if (resultado.next()) {
@@ -108,52 +108,52 @@ public class ProdutoDAO {
 	}
 
 	public ProdutoVO cadastrarProdutosDAO(ProdutoVO produtoVO) {
-				String query = "INSERT INTO produto (idtipoproduto, nome, preco, datacadastro) VALUES (?, ?, ?, ?)";
-				Connection conn = Banco.getConnection();
-				PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, query);
-				try {
-					pstmt.setInt(1, produtoVO.getTipoProdutoVO().getValor());
-					pstmt.setString(2, produtoVO.getNome());
-					pstmt.setDouble(3, produtoVO.getPreco());
-					pstmt.setObject(4, produtoVO.getDataCadastro());
-					pstmt.execute();
-					ResultSet resultado = pstmt.getGeneratedKeys(); // devolucao da chave primaria
-					if (resultado.next()) {
-						produtoVO.setIdProduto(resultado.getInt(1));
-					}
-				} catch (SQLException erro) {
-					System.out.println("Erro ao executar a quarto do médoto cadastrarProdutoDAO");
-					System.out.println("Erro: " + erro.getMessage());
-				} finally {
-					Banco.closePreparedStatement(pstmt);
-					Banco.closeConnection(conn);
-				}
-				return produtoVO;
+		String query = "INSERT INTO produto (idtipoproduto, nome, preco, datacadastro) VALUES (?, ?, ?, ?)";
+		Connection conn = Banco.getConnection();
+		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, query);
+		try {
+			pstmt.setInt(1, produtoVO.getTipoProdutoVO().getValor());
+			pstmt.setString(2, produtoVO.getNome());
+			pstmt.setDouble(3, produtoVO.getPreco());
+			pstmt.setObject(4, produtoVO.getDataCadastro());
+			pstmt.execute();
+			ResultSet resultado = pstmt.getGeneratedKeys(); 
+			if (resultado.next()) {
+				produtoVO.setIdProduto(resultado.getInt(1));
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao executar a quarto do médoto cadastrarProdutoDAO");
+			System.out.println("Erro: " + erro.getMessage());
+		} finally {
+			Banco.closePreparedStatement(pstmt);
+			Banco.closeConnection(conn);
+		}
+		return produtoVO;
 	}
 
 	public ArrayList<TipoProdutoVO> consultarTipoProdutosDAO() {
-			Connection conn = Banco.getConnection();
-			Statement stmt = Banco.getStatement(conn);
-			ResultSet resultado = null;
-			ArrayList<TipoProdutoVO> listaTipoProdutoVO = new ArrayList<TipoProdutoVO>();
-			String query = "SELECT descricao FROM tipoproduto";
-			try {
-				resultado = stmt.executeQuery(query);
-				while (resultado.next()) {
-					TipoProdutoVO tipoProdutoVO = TipoProdutoVO.valueOf(resultado.getString(1));
-					listaTipoProdutoVO.add(tipoProdutoVO);
-				}
-			} catch (SQLException erro) {
-				System.out.println("Erro ao executar a query do método consultarTipoProdutosDAO");
-				System.out.println("Erro: " + erro.getMessage());
-			} finally {
-				Banco.closeResultSet(resultado);
-				Banco.closeStatement(stmt);
-				Banco.closeConnection(conn);
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		ResultSet resultado = null;
+		ArrayList<TipoProdutoVO> listaTipoProdutoVO = new ArrayList<TipoProdutoVO>();
+		String query = "SELECT descricao FROM tipoproduto";
+		try {
+			resultado = stmt.executeQuery(query);
+			while (resultado.next()) {
+				TipoProdutoVO tipoProdutoVO = TipoProdutoVO.valueOf(resultado.getString(1));
+				listaTipoProdutoVO.add(tipoProdutoVO);
 			}
-
-			return listaTipoProdutoVO;
+		} catch (SQLException erro) {
+			System.out.println("Erro ao executar a query do método consultarTipoProdutosDAO");
+			System.out.println("Erro: " + erro.getMessage());
+		} finally {
+			Banco.closeResultSet(resultado);
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
 		}
+	
+		return listaTipoProdutoVO;
+	}
 
 	
 	public ArrayList<ProdutoVO> consultarTodosProdutosVigentesDAO() {
@@ -221,6 +221,27 @@ public class ProdutoDAO {
 		}
 		return produtoVO;
 
+	}
+
+	public boolean atualizarProdutoDAO(ProdutoVO produtoVO) {
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		boolean retorno = false;
+		String query = "UPDATE produto SET idtipoproduto = " + produtoVO.getTipoProdutoVO().getValor() + ", nome = '"
+				+ produtoVO.getNome() + "', preco = '" + produtoVO.getPreco() +  "' WHERE idproduto = " + produtoVO.getIdProduto();
+
+		try {
+			if (stmt.executeUpdate(query) == 1) {
+				retorno = true;
+			}
+		} catch (SQLException erro) {
+			System.out.println("Erro ao executar a query do método atualizarProdutoDAO");
+			System.out.println("Erro: " + erro.getMessage());
+		} finally {
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return retorno;
 	}
 
 }

@@ -6,8 +6,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import controller.ProdutoController;
+import controller.UsuarioController;
 import model.vo.ProdutoVO;
 import model.vo.TipoProdutoVO;
+import model.vo.TipoUsuarioVO;
+import model.vo.UsuarioVO;
 
 public class MenuProduto {
 	private static final int OPCAO_MENU_CADASTRAR_PRODUTO = 1;
@@ -70,7 +73,7 @@ public class MenuProduto {
 	}
 
 	private void cadastrarProduto(ProdutoVO produtoVO) {
-		if (produtoVO.getTipoProdutoVO() == null) {// verificando se quem tá chamando é o adm
+		if (produtoVO.getTipoProdutoVO() == null) {
 			do {
 				produtoVO
 						.setTipoProdutoVO(TipoProdutoVO.getTipoProdutoVOPorValor(this.apresentarOpcoesTipoProdutoVO()));
@@ -90,7 +93,6 @@ public class MenuProduto {
 			} else {
 				System.out.println("Não foi possivel cadastrar o Produto!");
 			}
-
 		}
 	}
 
@@ -185,9 +187,32 @@ public class MenuProduto {
 	}
 
 	private void atualizarProduto() {
-		
+		ProdutoVO produtoVO = new ProdutoVO();
+		System.out.print("\nInforme o código do produto: ");
+		produtoVO.setIdProduto(Integer.parseInt(teclado.nextLine()));
+	
+		do {
+			produtoVO.setTipoProdutoVO(TipoProdutoVO.getTipoProdutoVOPorValor(this.apresentarOpcoesTipoProdutoVO()));
+		} while (produtoVO.getTipoProdutoVO() == null);
 
+		System.out.println("\nDigite o Nome: ");
+		produtoVO.setNome(teclado.nextLine());
+		System.out.println("\nDigite o Preço: ");
+		produtoVO.setPreco(Double.parseDouble(teclado.nextLine()));
+		produtoVO.setDataCadastro(LocalDateTime.now());
+		
+		
+		if (this.validarCamposCadastro(produtoVO)) {
+			ProdutoController ProdutoController = new ProdutoController();
+			boolean resultado = ProdutoController.atualizarProdutoController(produtoVO);
+			if (resultado) { 
+				System.out.println("Produto foi atualizado com sucesso!");
+			} else {
+				System.out.println("Não foi possivel atualizar o Produto!");
+			}
+		}
 	}
+	
 
 	private void excluirProduto() {
 		ProdutoVO produtoVO = new ProdutoVO();
@@ -197,7 +222,7 @@ public class MenuProduto {
 		produtoVO.setDataExclusao(
 				LocalDateTime.parse(teclado.nextLine(), DateTimeFormatter.ofPattern("dd/MM/yyyy HH:mm:ss")));
 
-		if (produtoVO.getIdProduto() == 0 || produtoVO.getDataExclusao() == null) { // nao preencheu as informaçoes
+		if (produtoVO.getIdProduto() == 0 || produtoVO.getDataExclusao() == null) { 
 			System.out.println("Os campos código do produto e data de exclusão são obrigatórios.");
 		} else {
 			ProdutoController produtoController = new ProdutoController();
