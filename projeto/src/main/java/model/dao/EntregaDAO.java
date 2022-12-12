@@ -18,7 +18,7 @@ public class EntregaDAO {
 		Statement stmt = Banco.getStatement(conn);
 		boolean retorno = false;
 
-		String query = "INSERT INTO entrega (idVenda, idEntregador, idSituacaiEntrega) VALUES ("
+		String query = "INSERT INTO entrega (idVenda, idEntregador, idSituacaoEntrega) VALUES ("
 				+ entregaVO.getIdVenda() + ", " + entregaVO.getIdEntregador() + ", "
 				+ entregaVO.getSituacaoEntrega().getValor() + ")";
 		try {
@@ -98,6 +98,26 @@ public class EntregaDAO {
 			Banco.closeConnection(conn);
 		}
 		return entrega;
+	}
+
+	public boolean cancelarEntregaDAO(int idVenda) {
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		boolean retorno = false;
+		String query = "UPDATE entrega SET idSituacaoEntrega = " + SituacaoEntregaVO.ENTREGA_CANCELADA.getValor() + ", "
+				+ "dataEntrega = '" + LocalDateTime.now() + "'WHERE idVenda = " + idVenda;
+		try {
+			if (stmt.executeUpdate(query) == 1) {
+				retorno = true;
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar a query do método cancelarEntregaDAO");
+			System.out.println("Erro: " + e.getMessage());
+		} finally {
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return retorno;
 	}
 
 }

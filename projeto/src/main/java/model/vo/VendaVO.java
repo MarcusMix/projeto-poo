@@ -11,8 +11,8 @@ public class VendaVO {
 	private int numeroPedido;
 	private LocalDateTime dataVenda;
 	private LocalDateTime dataCancelamento;
-	private boolean flagEntrega;
-	private double taxaEntrega; 
+	private boolean flagEntrega; // bit ?
+	private double taxaEntrega; // numeric(10,2)
 
 	public VendaVO(int idVenda, int idUsuario, ArrayList<ItemVendaVO> listaItemVendaVO, int numeroPedido,
 			LocalDateTime dataVenda, LocalDateTime dataCancelamento, boolean flagEntrega, double taxaEntrega) {
@@ -29,6 +29,7 @@ public class VendaVO {
 
 	public VendaVO() {
 		super();
+		// TODO Auto-generated constructor stub
 	}
 
 	public int getIdVenda() {

@@ -4,7 +4,9 @@ import model.dao.EntregaDAO;
 import model.dao.ProdutoDAO;
 import model.dao.UsuarioDAO;
 import model.dao.VendaDAO;
+import model.vo.EntregaVO;
 import model.vo.ItemVendaVO;
+import model.vo.SituacaoEntregaVO;
 import model.vo.VendaVO;
 
 public class VendaBO {
@@ -23,7 +25,7 @@ public class VendaBO {
 			}
 			if (listaItemsEValida) {
 				VendaDAO vendaDAO = new VendaDAO();
-				vendaVO = vendaDAO.cadastraVendaDAO(vendaVO);
+				vendaVO = vendaDAO.cadastrarVendaDAO(vendaVO);
 				if (vendaVO.getIdUsuario() != 0) {
 					boolean resultado = vendaDAO.cadastrarItemVendaDAO(vendaVO);
 					if (!resultado) {
@@ -45,32 +47,45 @@ public class VendaBO {
 		}
 		return vendaVO;
 	}
-	
-	
+
+	// Verificar se a venda existe na base de dados.
+	// Verificar se a venda já está cancelada na base de dados.
+	// Vefiricar se a data de cancelamento é posterior a data de venda.
+	// Se houver entrega verificar se a entra já foi realizada ou se está em rota de
+	// entrega.
 	public boolean cancelarVendaBO(VendaVO vendaVO) {
-		boolean resultado = false;
+		boolean retorno = false;
+		EntregaDAO entregaDAO = new EntregaDAO();
 		VendaDAO vendaDAO = new VendaDAO();
-		if(vendaDAO.verificarExistenciaRegistroPorIdVendaDAO(vendaVO.getIdVenda())) { // verificar se a venda existe
-			if(vendaDAO.verificarCancelamentoPorIdVendaDAO(vendaVO.getIdVenda())) {
-				System.out.println("\nProduto já se encontra deletado da base de dados!");
-			}else {
-				resultado = vendaDAO.excluirVendaDAO(vendaVO);
+		VendaVO vendaBanco = vendaDAO.consultarVendaDAO(vendaVO);
+		if (vendaBanco != null) {
+			if (vendaBanco.getDataCancelamento() == null) {
+				if (vendaBanco.getDataVenda().isBefore(vendaVO.getDataCancelamento())) {
+					if (vendaBanco.isFlagEntrega()) {
+						EntregaVO entregaVO = entregaDAO.consultarEntregaPorIdVendaDAO(vendaVO.getIdVenda());
+						if (entregaVO.getSituacaoEntrega().getValor() <= SituacaoEntregaVO.PREPARANDO_PEDIDO
+								.getValor()) {
+							boolean resultado = entregaDAO.cancelarEntregaDAO(vendaVO.getIdVenda());
+							if (resultado) {
+								retorno = vendaDAO.cancelarVendaDAO(vendaVO);
+							} else {
+								System.out.println("\nNão foi possível alterar a situação da entra para cancelada.");
+							}
+						} else {
+							System.out.println("\nO pedido já se encontra em processo de entrea/entregue.");
+						}
+					} else {
+						retorno = vendaDAO.cancelarVendaDAO(vendaVO);
+					}
+				} else {
+					System.out.println("\nA data de cancelamento é anterior a data de cadastro da venda.");
+				}
+			} else {
+				System.out.println("\nVenda já se encontra cancelada na base de dados.");
 			}
-		}else {
-			System.out.println("\nVenda não existe na base de dados!");
 		}
-		return resultado;
+		return retorno;
 	}
-//		VendaDAO vendaDAO = new VendaDAO();
-//		boolean resultado = false;
-//		if (vendaDAO.verificarCancelamentoPorIdVendaDAO(vendaVO.getIdVenda()) == true) {
-//			resultado = vendaDAO.excluirVendaDAO(vendaVO);
-//			} else {
-//				System.out.println("\nVenda não existe na base de dados!");
-//			}
-//		return resultado;
-	
-	
 
 	public boolean verificarVendaParaAtualizarSituacaoEntrega(VendaVO vendaVO) {
 		VendaDAO vendaDAO = new VendaDAO();

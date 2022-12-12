@@ -16,12 +16,12 @@ import model.vo.VendaVO;
 
 public class MenuVenda {
 	private static final int OPCAO_MENU_CADASTRAR_VENDA = 1;
-	private static final int OPCAO_MENU_CANCELAR_VENDA = 2; // VAMOS FAZER
-	private static final int OPCAO_MENU_SITUACAO_ENTREGA = 3; // MUDAR STAUS
+	private static final int OPCAO_MENU_CANCELAR_VENDA = 2; 
+	private static final int OPCAO_MENU_SITUACAO_ENTREGA = 3;
 	private static final int OPCAO_MENU_VENDA_VOLTAR = 9;
 
-	private static int NUMERO_PEDIDO = 0; // simbolizar senha de
-	private static double PERCENTUAL = 0.05; // taxa de 5%
+	private static int NUMERO_PEDIDO = 0; 
+	private static double PERCENTUAL = 0.05; 
 
 	Scanner teclado = new Scanner(System.in);
 
@@ -60,11 +60,11 @@ public class MenuVenda {
 		System.out.println("\n--------- Sistema Foodtruck --------");
 		System.out.println("--------- Menu de Produto ------------");
 		System.out.println("\nOpções: ");
-		if (!usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.ENTREGADOR)) { // qualquer perfil menos Entregador
+		if (!usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.ENTREGADOR)) { 
 			System.out.println(OPCAO_MENU_CADASTRAR_VENDA + " - Cadastrar Venda");
 			System.out.println(OPCAO_MENU_CANCELAR_VENDA + " - Cancelar Venda");
 		}
-		if (!usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.CLIENTE)) { // qualquer perfil menos Cliente
+		if (!usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.CLIENTE)) { 
 			System.out.println(OPCAO_MENU_SITUACAO_ENTREGA + " - Situação da Entrega");
 		}
 		System.out.println(OPCAO_MENU_VENDA_VOLTAR + " - Voltar");
@@ -75,7 +75,7 @@ public class MenuVenda {
 	private void cadastrarVenda(UsuarioVO usuarioVO) {
 		ArrayList<ProdutoVO> listaProdutosVO = this.listarProdutos();
 		VendaVO vendaVO = new VendaVO();
-		if (usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.CLIENTE)) {// proprio cliente comprando
+		if (usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.CLIENTE)) {
 			vendaVO.setIdUsuario(usuarioVO.getIdUsuario());
 		} else {
 			System.out.print("Informe o código do cliente: ");

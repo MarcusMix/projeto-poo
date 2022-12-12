@@ -8,7 +8,6 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-import model.bo.VendaBO;
 import model.vo.ItemVendaVO;
 import model.vo.VendaVO;
 
@@ -192,9 +191,8 @@ public class VendaDAO {
 		Connection conn = Banco.getConnection();
 		Statement stmt = Banco.getStatement(conn);
 		boolean retorno = false;
-		String query = "UPDATE venda SET datacancelamento = '" + vendaVO.getDataCancelamento()
-		+ "' WHERE idvenda = "
-		+ vendaVO.getIdVenda();
+		String query = "UPDATE venda SET datacancelamento = '" + vendaVO.getDataCancelamento() + "' WHERE idvenda = "
+				+ vendaVO.getIdVenda();
 		try {
 			if (stmt.executeUpdate(query) == 1) {
 				retorno = true;
@@ -209,5 +207,58 @@ public class VendaDAO {
 		return retorno;
 	}
 
+	public VendaVO cadastrarVendaDAO(VendaVO vendaVO) {
+		String query = "INSERT INTO venda (idUsuario, numeroPedido, dataVenda, flagEntrega";
+		if (vendaVO.isFlagEntrega()) {
+			query += ", taxaEntrega) VALUES (?, ?, ?, ?, ?)";
+		} else {
+			query += ") VALUES (?, ?, ?, ?)";
+		}
+		Connection conn = Banco.getConnection();
+		PreparedStatement pstmt = Banco.getPreparedStatementWithPk(conn, query);
+		try {
+			pstmt.setInt(1, vendaVO.getIdUsuario());
+			pstmt.setInt(2, vendaVO.getNumeroPedido());
+			pstmt.setObject(3, vendaVO.getDataVenda());
+			if (vendaVO.isFlagEntrega()) {
+				pstmt.setInt(4, 1);
+				pstmt.setDouble(5, vendaVO.getTaxaEntrega());
+			} else {
+				pstmt.setInt(4, 0);
+			}
+			pstmt.execute();
+			ResultSet resultado = pstmt.getGeneratedKeys();
+			if (resultado.next()) {
+				vendaVO.setIdVenda(resultado.getInt(1));
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar a query do método cadastrarVendaDAO!");
+			System.out.println("Erro: " + e.getMessage());
+		} finally {
+			Banco.closePreparedStatement(pstmt);
+			Banco.closeConnection(conn);
+		}
+		return vendaVO;
+	}
+
+	public boolean cancelarVendaDAO(VendaVO vendaVO) {
+		Connection conn = Banco.getConnection();
+		Statement stmt = Banco.getStatement(conn);
+		boolean retorno = false;
+		String query = "UPDATE venda SET datacancelamento = '" + vendaVO.getDataCancelamento() + "'WHERE idvenda = "
+				+ vendaVO.getIdVenda();
+		try {
+			if (stmt.executeUpdate(query) == 1) {
+				retorno = true;
+			}
+		} catch (SQLException e) {
+			System.out.println("Erro ao executar a query do método cancelarVendaDAO!");
+			System.out.println("Erro: " + e.getMessage());
+		} finally {
+			Banco.closeStatement(stmt);
+			Banco.closeConnection(conn);
+		}
+		return retorno;
+	}
 
 }

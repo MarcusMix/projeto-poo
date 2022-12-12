@@ -5,7 +5,7 @@ public class ItemVendaVO {
 	private int idProduto;
 	private VendaVO vendaVO;
 	private ProdutoVO produtoVO;
-	private int quantidade; // No Sql tem quantidade Int, não iria também?
+	private int quantidade; 
 	public ItemVendaVO(int idItemVenda, int idProduto, VendaVO vendaVO, ProdutoVO produtoVO, int quantidade) {
 		super();
 		this.idItemVenda = idItemVenda;
