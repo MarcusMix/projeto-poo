@@ -3,7 +3,6 @@ package model.vo;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-// representacao em java de uma tabela do sql
 public class UsuarioVO {
 
 	private int idUsuario;
