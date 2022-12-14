@@ -6,7 +6,7 @@ public class EntregaVO {
 	private int idEntrega;
 	private int idVenda;
 	private int idEntregador;
-	private SituacaoEntregaVO situacaoEntrega; //situacaoEntregaVO?
+	private SituacaoEntregaVO situacaoEntrega; 
 	private LocalDateTime dataEntrega;
 	public EntregaVO(int idEntrega, int idVenda, int idEntregador, SituacaoEntregaVO situacaoEntrega,
 			LocalDateTime dataEntrega) {
@@ -19,7 +19,6 @@ public class EntregaVO {
 	}
 	public EntregaVO() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 	public int getIdEntrega() {
 		return idEntrega;

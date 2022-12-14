@@ -19,26 +19,26 @@ public class Menu {
 		int opcao = this.apresentarOpcoesMenu(usuarioVO);
 		while (opcao != OPCAO_MENU_VOLTAR) {
 			switch (opcao) {
-			case OPCAO_MENU_VENDA: {// todos
+			case OPCAO_MENU_VENDA: {
 				MenuVenda menuVenda = new MenuVenda();
 				menuVenda.apresentarMenuVenda(usuarioVO);
 				break;
 			}
-			case OPCAO_MENU_PRODUTO: {// adm e funcionario
+			case OPCAO_MENU_PRODUTO: {
 				if (usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.FUNCIONARIO) || usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.ADMINISTRADOR)) {
 					MenuProduto menuProduto = new MenuProduto();
 					menuProduto.apresentarMenuProduto();
 				}
 				break;
 			}
-			case OPCAO_MENU_RELATORIO: {// adm e funcionario
+			case OPCAO_MENU_RELATORIO: {
 				if (usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.FUNCIONARIO) || usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.ADMINISTRADOR)) {
 					MenuRelatorio menuRelatorio = new MenuRelatorio();
 					menuRelatorio.apresentarMenuRelatorio();
 				}
 				break;
 			}
-			case OPCAO_MENU_USUARIO: {// só adm
+			case OPCAO_MENU_USUARIO: {
 				if (usuarioVO.getTipoUsuarioVO().equals(TipoUsuarioVO.ADMINISTRADOR)) {
 					MenuUsuario menuUsuario = new MenuUsuario();
 					menuUsuario.apresentarMenuUsuario();

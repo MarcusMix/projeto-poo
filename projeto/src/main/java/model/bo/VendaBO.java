@@ -48,11 +48,6 @@ public class VendaBO {
 		return vendaVO;
 	}
 
-	// Verificar se a venda existe na base de dados.
-	// Verificar se a venda já está cancelada na base de dados.
-	// Vefiricar se a data de cancelamento é posterior a data de venda.
-	// Se houver entrega verificar se a entra já foi realizada ou se está em rota de
-	// entrega.
 	public boolean cancelarVendaBO(VendaVO vendaVO) {
 		boolean retorno = false;
 		EntregaDAO entregaDAO = new EntregaDAO();
@@ -65,11 +60,11 @@ public class VendaBO {
 						EntregaVO entregaVO = entregaDAO.consultarEntregaPorIdVendaDAO(vendaVO.getIdVenda());
 						if (entregaVO.getSituacaoEntrega().getValor() <= SituacaoEntregaVO.PREPARANDO_PEDIDO
 								.getValor()) {
-							boolean resultado = entregaDAO.cancelarEntregaDAO(vendaVO.getIdVenda());
+							boolean resultado = entregaDAO.cancelarEntregaDAO(vendaVO, SituacaoEntregaVO.PEDIDO_CANCELADO.getValor());
 							if (resultado) {
 								retorno = vendaDAO.cancelarVendaDAO(vendaVO);
 							} else {
-								System.out.println("\nNão foi possível alterar a situação da entra para cancelada.");
+								System.out.println("\nNão foi possível alterar a situação da entrega para cancelada.");
 							}
 						} else {
 							System.out.println("\nO pedido já se encontra em processo de entrea/entregue.");

@@ -2,12 +2,12 @@
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
 
-  <groupId>jesus.milena</groupId>
-  <artifactId>milena</artifactId>
+  <groupId>projeto.poo</groupId>
+  <artifactId>foodtruck</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>jar</packaging>
 
-  <name>milena</name>
+  <name>foodtruck</name>
   <url>http://maven.apache.org</url>
 
   <properties>
@@ -17,16 +17,42 @@
   <dependencies>
   
     <dependency>
-    <groupId>mysql</groupId>
-    <artifactId>mysql-connector-java</artifactId>
-    <version>8.0.31</version>
-</dependency>
+	    <groupId>mysql</groupId>
+	    <artifactId>mysql-connector-java</artifactId>
+	    <version>8.0.31</version>
+	</dependency>
   
     <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>3.8.1</version>
-      <scope>test</scope>
+	     <groupId>junit</groupId>
+	     <artifactId>junit</artifactId>
+	     <version>3.8.1</version>
+	     <scope>test</scope>
     </dependency>
+    
+     <dependency>    
+     	<groupId>net.sf.jasperreports</groupId>
+	    <artifactId>jasperreports</artifactId>
+	    <version>6.20.0</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.codehaus.groovy</groupId>
+	    <artifactId>groovy-all</artifactId>
+	    <version>2.5.11</version>
+	    <type>pom</type>
+	</dependency>
+	
+	<dependency>
+	 <groupId>net.sf.barcode4j</groupId>
+	 <artifactId>barcode4j</artifactId>
+	 <version>2.1</version>
+	</dependency>
+	
+	<dependency>
+	 <groupId>org.apache.xmlgraphics</groupId>
+	 <artifactId>batik-bridge</artifactId>
+	 <version>1.16</version>
+	</dependency>
+    
   </dependencies>
 </project>

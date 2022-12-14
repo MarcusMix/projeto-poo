@@ -61,14 +61,15 @@ QUANTIDADE INT
 
 CREATE TABLE SITUACAOENTREGA (
 IDSITUACAOENTREGA INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-DESCRICAO VARCHAR(255)
+DESCRICAO VARCHAR(255),
+ORDEM INT
 );
 
 CREATE TABLE ENTREGA (
 IDENTREGA INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
 IDVENDA INT, FOREIGN KEY (IDVENDA) REFERENCES VENDA (IDVENDA),
 IDENTREGADOR INT, FOREIGN KEY (IDENTREGADOR) REFERENCES USUARIO (IDUSUARIO),
-IDSITUACAOENTREGA INT, FOREIGN KEY (IDSITUACAOENTREGA) REFERENCES SITUACAOENTREGA (IDSITUACAOENTREGA),
+idSITUACAOENTREGA INT,
 DATAENTREGA DATETIME
 );
 
@@ -84,10 +85,13 @@ INSERT INTO TIPOPRODUTO (descricao) VALUES ('BEBIDA');
 INSERT INTO TIPOPRODUTO (descricao) VALUES ('SOBREMESA');
 
 
-INSERT INTO SITUACAOENTREGA (descricao) VALUES ('ENTREGA_CANCELADA');
-INSERT INTO SITUACAOENTREGA (descricao) VALUES ('PREPARANDO_PEDIDO');
-INSERT INTO SITUACAOENTREGA (descricao) VALUES ('EM_ROTA_DE_ENTREGA');
-INSERT INTO SITUACAOENTREGA (descricao) VALUES ('PEDIDO_ENTREGUE');
+
+INSERT INTO SITUACAOENTREGA (descricao, ordem) VALUES ('PEDIDO_REALIZADO', 1);
+INSERT INTO SITUACAOENTREGA (descricao, ordem) VALUES ('PREPARANDO_PEDIDO', 2);
+INSERT INTO SITUACAOENTREGA (descricao, ordem) VALUES ('EM_ROTA_DE_ENTREGA', 3);
+INSERT INTO SITUACAOENTREGA (descricao, ordem) VALUES ('PEDIDO_ENTREGUE', 4);
+INSERT INTO SITUACAOENTREGA (descricao, ordem) VALUES ('PEDIDO_CANCELADO', 8);
+INSERT INTO SITUACAOENTREGA (descricao, ordem) VALUES ('ENTREGA_CANCELADA', 9);
 
 
 
@@ -95,7 +99,7 @@ INSERT INTO SITUACAOENTREGA (descricao) VALUES ('PEDIDO_ENTREGUE');
 INSERT INTO USUARIO (idtipousuario, nome, cpf, email, telefone, datacadastro, dataexpiracao, login, senha) 
 VALUES (1, 'Adriano de Melo', '01234567890', 'adriano@gmail.com', '91111-6666', '2022-10-01', null, 'adriano', 'adriano');
 INSERT INTO USUARIO (idtipousuario, nome, cpf, email, telefone, datacadastro, dataexpiracao, login, senha) 
-VALUES (5, 'Alu ak ba', '01234567897', 'ak47@gmail.com', '91111-6665', '2022-10-09', null, 'a', 'a');
+VALUES (1, 'João', '01234567897', 'ak47@gmail.com', '91111-6665', '2022-10-09', null, 'joao', 'joao');
 INSERT INTO USUARIO (idtipousuario, nome, cpf, email, telefone, datacadastro, dataexpiracao, login, senha) 
 VALUES (2, 'Jessica Melo', '09876543210', 'jessica@gmail.com', '91111-7777', '2022-10-01', null, 'cliente', 'cliente');
 INSERT INTO USUARIO (idtipousuario, nome, cpf, email, telefone, datacadastro, dataexpiracao, login, senha) 
@@ -105,12 +109,13 @@ VALUES (4, 'Roberto Melo', '09873456210', 'roberto@gmail.com', '91111-9999', '20
 INSERT INTO USUARIO (idtipousuario, nome, cpf, email, telefone, datacadastro, dataexpiracao, login, senha) 
 VALUES (4, 'Fernanda Melo', '09875634210', 'fernanda@gmail.com', '92222-9999', '2022-10-01', null, 'entregador', 'entregador');
 
+
 INSERT INTO PRODUTO (idtipoproduto, nome, preco, datacadastro, dataexclusao) VALUES (1, 'Pizza', 50.00, '2022-10-01', null);
 INSERT INTO PRODUTO (idtipoproduto, nome, preco, datacadastro, dataexclusao) VALUES (2, 'Coca-Cola', 7.00, '2022-10-01', null);
 INSERT INTO PRODUTO (idtipoproduto, nome, preco, datacadastro, dataexclusao) VALUES (3, 'Sorvete', 15.00, '2022-10-01', null);
 
 INSERT INTO VENDA (idusuario, numeropedido, datavenda, datacancelamento, flagentrega, taxaentrega) VALUES (2, 1, '2022-11-03', null, 0, null);
-INSERT INTO VENDA (idusuario, numeropedido, datavenda, datacancelamento, flagentrega, taxaentrega) VALUES (2, 1, '2022-11-04', null, 1, 10.00);
+INSERT INTO VENDA (idusuario, numeropedido, datavenda, datacancelamento, flagentrega, taxaentrega) VALUES (2, 1, '2022-11-04', '2022-11-30', 1, 10.00);
 
 INSERT INTO ITEMVENDA (idvenda, idproduto, quantidade) VALUES (1, 1, 2);
 INSERT INTO ITEMVENDA (idvenda, idproduto, quantidade) VALUES (1, 2, 2);
@@ -120,6 +125,7 @@ INSERT INTO ITEMVENDA (idvenda, idproduto, quantidade) VALUES (2, 2, 2);
 INSERT INTO ITEMVENDA (idvenda, idproduto, quantidade) VALUES (2, 3, 2);
 
 INSERT INTO ENTREGA (idvenda, identregador, idsituacaoentrega, dataentrega) VALUES (2, 4, 3, '2022-11-04 21:00:00'); 
+INSERT INTO ENTREGA (idvenda, identregador, idsituacaoentrega, dataentrega) VALUES (1, 4, 4, '2022-11-04 22:00:00'); 
 
 
 
@@ -138,4 +144,6 @@ SELECT * FROM ITEMVENDA;
 SELECT * FROM ENTREGA;
 
 SELECT * FROM SITUACAOENTREGA;
+
+
 

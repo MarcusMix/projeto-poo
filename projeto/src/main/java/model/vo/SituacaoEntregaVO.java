@@ -2,10 +2,12 @@ package model.vo;
 
 public enum SituacaoEntregaVO {
 
-	ENTREGA_CANCELADA(1),
+	PEDIDO_REALIZADO(1),
 	PREPARANDO_PEDIDO(2),
 	EM_ROTA_DE_ENTREGA(3),
-	PEDIDO_ENTREGUE(4);
+	PEDIDO_ENTREGUE(4),
+	PEDIDO_CANCELADO(8),
+	ENTREGA_CANCELADA(9);
 
 	private int valor;
 

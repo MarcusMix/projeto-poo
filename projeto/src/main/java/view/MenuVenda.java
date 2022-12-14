@@ -189,6 +189,8 @@ public class MenuVenda {
 
 		}
 	}
+	
+	
 
 	private void atualizarSituacaoEntrega() {
 		VendaVO vendaVO = new VendaVO();

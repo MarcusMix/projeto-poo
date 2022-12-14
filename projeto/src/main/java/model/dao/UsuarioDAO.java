@@ -307,7 +307,7 @@ public class UsuarioDAO {
 				+"FROM usuario u, tipoUsuario tipo "
 				+"WHERE u.idTipoUsuario = tipo.idTipoUsuario "
 				+"AND u.dataExpiracao is NULL "
-				+"AND tipo.descricao like '" + TipoUsuarioVO.ENTREGADOR.toString()+"'";
+				+"AND tipo.descricao like '" + TipoUsuarioVO.ENTREGADOR.toString() + "'";
 		try {
 			resultado = stmt.executeQuery(query);
 			while (resultado.next()) {
@@ -321,6 +321,7 @@ public class UsuarioDAO {
 				usuarioVO.setDataCadastro(LocalDateTime.parse(resultado.getString(7), DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss")));
 				usuarioVO.setLogin(resultado.getString(8)); 
 				usuarioVO.setSenha(resultado.getString(9)); 
+				listaUsuarioVO.add(usuarioVO);
 			}
 		} catch (SQLException erro) {
 			System.out.println("Erro ao executar a query do método consultarTipoUsuariosDAO");

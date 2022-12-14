@@ -1,29 +1,30 @@
 package view;
-// tipo produto enum
-// produtoVO
-// situação de entrega Enum
-// vendaVO
-// entregaVO
+
+
+import java.io.IOException;
 import java.util.Scanner;
 //responsabilidade de logar credenciais
 import controller.UsuarioController;
+import model.dao.Banco;
 import model.vo.TipoUsuarioVO;
 import model.vo.UsuarioVO;
-//na hora da compilacao a jvm embute um construtor padrão
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperRunManager;
+
 public class Login {
 
 	Scanner teclado = new Scanner(System.in);
-	private static final int OPCAO_MENU_LOGIN = 1; // constante = atributos de classe
+	private static final int OPCAO_MENU_LOGIN = 1; 
 	private static final int OPCAO_MENU_CRIAR_CONTA = 2;
-	private static final int OPCAO_MENU_SAIR = 3;
+	private static final int OPCAO_MENU_SAIR = 4;
 
 	public void apresentarMenuLogin() {
 		int opcao = this.apresentarOpcoesMenu();
-		while (opcao != OPCAO_MENU_SAIR) { // condição para sair
+		while (opcao != OPCAO_MENU_SAIR) { 
 			switch (opcao) {
 			case OPCAO_MENU_LOGIN: {
-				UsuarioVO usuarioVO = this.realizarLogin(); // import pois UsuarioVO está na classe Model.VO
-				if (usuarioVO.getIdUsuario() != 0 && usuarioVO.getDataExpiracao() == null) {// usuário válido
+				UsuarioVO usuarioVO = this.realizarLogin(); 
+				if (usuarioVO.getIdUsuario() != 0 && usuarioVO.getDataExpiracao() == null) {
 					System.out.println("\nUsuário Logado: "+ usuarioVO.getLogin());
 					System.out.println("Perfil: "+ usuarioVO.getTipoUsuarioVO());
 					Menu menu = new Menu();
@@ -36,11 +37,12 @@ public class Login {
 				this.cadastrarNovoUsuario();
 				break;
 			}
+			
 			default: {
 				System.out.println("\nOpção Inválida!");
 			}
 			}
-			opcao = this.apresentarOpcoesMenu(); // não entra em looping e torna interatido (teclado)
+			opcao = this.apresentarOpcoesMenu(); 
 		}
 	}
 
@@ -80,7 +82,7 @@ public class Login {
 	
 	private void cadastrarNovoUsuario() {
 		UsuarioVO usuarioVO = new UsuarioVO();
-		usuarioVO.setTipoUsuarioVO(TipoUsuarioVO.CLIENTE); // todo mundo que se cadastra dessa maneira será CLIENTE
+		usuarioVO.setTipoUsuarioVO(TipoUsuarioVO.CLIENTE); 
 		
 		MenuUsuario menuUsuario = new MenuUsuario();
 		menuUsuario.cadastrarNovoUsuario(usuarioVO);

@@ -8,6 +8,7 @@ import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
+import model.vo.EntregaVO;
 import model.vo.ItemVendaVO;
 import model.vo.VendaVO;
 
@@ -173,8 +174,10 @@ public class VendaDAO {
 		String query = "SELECT datacancelamento FROM venda WHERE idvenda = " + idVenda;
 		try {
 			resultado = stmt.executeQuery(query);
-			if (resultado.getString(1) != null) {
-				retorno = true;
+			if(resultado.next()) {
+				if (resultado.getString(1) != null) {
+					retorno = true;
+				}
 			}
 		} catch (SQLException e) {
 			System.out.println("Erro ao executar a query do método verificarCancelamentoPorIdVendaDAO!");
