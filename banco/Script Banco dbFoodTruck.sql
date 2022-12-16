@@ -105,17 +105,18 @@ VALUES (2, 'Jessica Melo', '09876543210', 'jessica@gmail.com', '91111-7777', '20
 INSERT INTO USUARIO (idtipousuario, nome, cpf, email, telefone, datacadastro, dataexpiracao, login, senha) 
 VALUES (3, 'Bruna Melo', '09876453210', 'bruna@gmail.com', '91111-8888', '2022-10-01', null, 'func', 'func');
 INSERT INTO USUARIO (idtipousuario, nome, cpf, email, telefone, datacadastro, dataexpiracao, login, senha) 
-VALUES (4, 'Roberto Melo', '09873456210', 'roberto@gmail.com', '91111-9999', '2022-10-01', null, 'entregador', 'entregador');
+VALUES (4, 'Entregador José', '09873456210', 'roberto@gmail.com', '91111-9999', '2022-10-01', null, 'entregador', 'entregador');
 INSERT INTO USUARIO (idtipousuario, nome, cpf, email, telefone, datacadastro, dataexpiracao, login, senha) 
-VALUES (4, 'Fernanda Melo', '09875634210', 'fernanda@gmail.com', '92222-9999', '2022-10-01', null, 'entregador', 'entregador');
+VALUES (4, 'Entregador Pedro', '09875634210', 'fernanda@gmail.com', '92222-9999', '2022-10-01', null, 'entregador', 'entregador');
 
 
-INSERT INTO PRODUTO (idtipoproduto, nome, preco, datacadastro, dataexclusao) VALUES (1, 'Pizza', 50.00, '2022-10-01', null);
-INSERT INTO PRODUTO (idtipoproduto, nome, preco, datacadastro, dataexclusao) VALUES (2, 'Coca-Cola', 7.00, '2022-10-01', null);
-INSERT INTO PRODUTO (idtipoproduto, nome, preco, datacadastro, dataexclusao) VALUES (3, 'Sorvete', 15.00, '2022-10-01', null);
+INSERT INTO PRODUTO (idtipoproduto, nome, preco, datacadastro, dataexclusao) VALUES (1, 'Cachorro-quente', 15.00, '2022-10-01', null);
+INSERT INTO PRODUTO (idtipoproduto, nome, preco, datacadastro, dataexclusao) VALUES (2, 'Café', 7.00, '2022-10-01', null);
+INSERT INTO PRODUTO (idtipoproduto, nome, preco, datacadastro, dataexclusao) VALUES (3, 'Açai', 15.00, '2022-10-01', null);
+INSERT INTO PRODUTO (idtipoproduto, nome, preco, datacadastro, dataexclusao) VALUES (4, 'Mentos', 2.50, '2022-10-01', null);
 
 INSERT INTO VENDA (idusuario, numeropedido, datavenda, datacancelamento, flagentrega, taxaentrega) VALUES (2, 1, '2022-11-03', null, 0, null);
-INSERT INTO VENDA (idusuario, numeropedido, datavenda, datacancelamento, flagentrega, taxaentrega) VALUES (2, 1, '2022-11-04', '2022-11-30', 1, 10.00);
+INSERT INTO VENDA (idusuario, numeropedido, datavenda, datacancelamento, flagentrega, taxaentrega) VALUES (2, 2, '2022-11-04', '2022-11-30', 1, 10.00);
 
 INSERT INTO ITEMVENDA (idvenda, idproduto, quantidade) VALUES (1, 1, 2);
 INSERT INTO ITEMVENDA (idvenda, idproduto, quantidade) VALUES (1, 2, 2);
@@ -124,8 +125,8 @@ INSERT INTO ITEMVENDA (idvenda, idproduto, quantidade) VALUES (2, 1, 1);
 INSERT INTO ITEMVENDA (idvenda, idproduto, quantidade) VALUES (2, 2, 2);
 INSERT INTO ITEMVENDA (idvenda, idproduto, quantidade) VALUES (2, 3, 2);
 
-INSERT INTO ENTREGA (idvenda, identregador, idsituacaoentrega, dataentrega) VALUES (2, 4, 3, '2022-11-04 21:00:00'); 
-INSERT INTO ENTREGA (idvenda, identregador, idsituacaoentrega, dataentrega) VALUES (1, 4, 4, '2022-11-04 22:00:00'); 
+INSERT INTO ENTREGA (idvenda, identregador, idsituacaoentrega, dataentrega) VALUES (2, 5, 3, '2022-11-04 21:00:00'); 
+INSERT INTO ENTREGA (idvenda, identregador, idsituacaoentrega, dataentrega) VALUES (1, 6, 4, '2022-11-04 22:00:00'); 
 
 
 

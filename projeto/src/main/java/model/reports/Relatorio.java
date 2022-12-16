@@ -28,6 +28,7 @@ public class Relatorio {
 	}
 
 	public void gerarRelatorioAcompanhamentoPedidos(VendaVO vendaVO) {
+		
 		 try {
 	            String currentPath = "";
 	            try {
